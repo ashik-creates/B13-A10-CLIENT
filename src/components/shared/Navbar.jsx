@@ -53,8 +53,8 @@ export default function Navbar() {
               <Link href="/login">
                 <Button 
                   variant="light"
-                  radius="md"
-                  className="h-9 px-4 text-sm font-medium text-muted-foreground hover:bg-[#0D9488]/10 hover:text-[#0D9488] hover:border-[#0D9488]/30 border border-transparent"
+                  
+                  className="h-9 px-4 text-sm font-medium text-muted-foreground  border border-transparent rounded-md"
                 >
                   Login
                 </Button>
