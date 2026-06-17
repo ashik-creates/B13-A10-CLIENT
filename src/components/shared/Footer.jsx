@@ -9,14 +9,14 @@ import {
 
 export default function Footer() {
   return (
-    <footer className="mt-32 border-t border-divider/50 bg-background text-foreground">
+    <footer className="border-t border-divider/50 bg-background text-foreground">
       <div className="container mx-auto px-4 py-16">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div>
             <div className="mb-5 flex items-center gap-3">
-              <div className="relative flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-[#FF3B30] via-[#9C27B0] to-[#00D2FF] p-[1.5px]">
+              <div className="relative flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-[#00D2FF] via-[#9C27B0] to-[#FF3B30] p-[1.5px]">
                 <div className="flex h-full w-full items-center justify-center rounded-[7px] bg-background">
-                  <span className="font-serif text-base font-black tracking-tighter text-foreground"><FaBus></FaBus></span>
+                  <span className="font-serif text-base font-black tracking-tighter text-foreground"><FaBus /></span>
                 </div>
               </div>
               <h3 className="font-serif text-xl font-bold tracking-tight text-foreground">
@@ -60,19 +60,19 @@ export default function Footer() {
             </h4>
 
             <div className="flex gap-2">
-              <button className="flex h-10 w-10 items-center justify-center rounded-md border border-divider bg-content1 text-muted-foreground transition hover:text-white hover:bg-gradient-to-br hover:from-[#FF3B30] hover:to-[#BC00DD] hover:border-transparent">
+              <button className="flex h-10 w-10 items-center justify-center rounded-md border border-divider bg-content1 text-muted-foreground transition hover:text-white hover:bg-gradient-to-r hover:from-[#00D2FF] hover:to-[#9C27B0] hover:border-transparent">
                 <FaFacebookF size={14} />
               </button>
 
-              <button className="flex h-10 w-10 items-center justify-center rounded-md border border-divider bg-content1 text-muted-foreground transition hover:text-white hover:bg-gradient-to-br hover:from-[#FF3B30] hover:to-[#BC00DD] hover:border-transparent">
+              <button className="flex h-10 w-10 items-center justify-center rounded-md border border-divider bg-content1 text-muted-foreground transition hover:text-white hover:bg-gradient-to-r hover:from-[#00D2FF] hover:to-[#9C27B0] hover:border-transparent">
                 <FaInstagram size={14} />
               </button>
 
-              <button className="flex h-10 w-10 items-center justify-center rounded-md border border-divider bg-content1 text-muted-foreground transition hover:text-white hover:bg-gradient-to-br hover:from-[#FF3B30] hover:to-[#BC00DD] hover:border-transparent">
+              <button className="flex h-10 w-10 items-center justify-center rounded-md border border-divider bg-content1 text-muted-foreground transition hover:text-white hover:bg-gradient-to-r hover:from-[#00D2FF] hover:to-[#9C27B0] hover:border-transparent">
                 <FaLinkedinIn size={14} />
               </button>
 
-              <button className="flex h-10 w-10 items-center justify-center rounded-md border border-divider bg-content1 text-muted-foreground transition hover:text-white hover:bg-gradient-to-br hover:from-[#FF3B30] hover:to-[#BC00DD] hover:border-transparent">
+              <button className="flex h-10 w-10 items-center justify-center rounded-md border border-divider bg-content1 text-muted-foreground transition hover:text-white hover:bg-gradient-to-r hover:from-[#00D2FF] hover:to-[#9C27B0] hover:border-transparent">
                 <FaXTwitter size={14} />
               </button>
             </div>

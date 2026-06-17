@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Avatar, Dropdown, Label } from "@heroui/react";
+import { Avatar, Dropdown, Label, Button } from "@heroui/react";
 import { HiBars3, HiXMark } from "react-icons/hi2";
-import { FaMoon } from "react-icons/fa6"; 
+import { FaMoon } from "react-icons/fa6";
 import { BiLogOut } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
 import { FiArrowUpRight } from "react-icons/fi";
@@ -13,12 +13,9 @@ import { FaBus } from "react-icons/fa";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const user = null;
 
-  const handleSignOut = () => {
-    console.log("logout");
-  };
+  const handleSignOut = () => console.log("logout");
 
   return (
     <header className="sticky top-0 z-50 px-4 py-3 bg-background/60 backdrop-blur-xl border-b border-divider/50">
@@ -35,60 +32,47 @@ export default function Navbar() {
         </Link>
 
         <ul className="hidden items-center gap-1 lg:flex">
-          <li>
-            <Link
-              href="/"
-              className="rounded-md px-4 py-2 text-sm font-medium text-muted-foreground transition hover:bg-default-100 hover:text-foreground"
-            >
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/tickets"
-              className="rounded-md px-4 py-2 text-sm font-medium text-muted-foreground transition hover:bg-default-100 hover:text-foreground"
-            >
-              All Tickets
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/routes"
-              className="rounded-md px-4 py-2 text-sm font-medium text-muted-foreground transition hover:bg-default-100 hover:text-foreground"
-            >
-              Routes
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/contact"
-              className="rounded-md px-4 py-2 text-sm font-medium text-muted-foreground transition hover:bg-default-100 hover:text-foreground"
-            >
-              Contact
-            </Link>
-          </li>
+          {["Home|/", "All Tickets|/tickets", "Routes|/routes", "Contact|/contact"].map((item) => {
+            const [label, href] = item.split("|");
+            return (
+              <li key={href}>
+                <Link href={href} className="rounded-md px-4 py-2 text-sm font-medium text-muted-foreground transition hover:bg-default-100 hover:text-foreground">
+                  {label}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
 
         <div className="hidden items-center gap-4 lg:flex">
-          <button className="flex h-9 w-9 items-center justify-center rounded-md border border-divider bg-content1 text-muted-foreground transition hover:text-foreground hover:border-default-400">
+          <Button 
+            isIconOnly
+            variant="bordered"
+            radius="md"
+            className="h-9 w-9 border-divider bg-content1 text-muted-foreground hover:text-foreground hover:border-default-400 min-w-0"
+          >
             <FaMoon size={13} />
-          </button>
+          </Button>
 
           {!user ? (
             <div className="flex items-center gap-2">
               <Link href="/login">
-                <button className="px-4 h-9 text-sm font-medium text-muted-foreground rounded-md transition hover:bg-default-100 hover:text-foreground">
+                <Button 
+                  variant="light"
+                  radius="md"
+                  className="h-9 px-4 text-sm font-medium text-muted-foreground hover:bg-[#0D9488]/10 hover:text-[#0D9488] hover:border-[#0D9488]/30 border border-transparent"
+                >
                   Login
-                </button>
+                </Button>
               </Link>
 
               <Link href="/register">
-                <button className="relative group overflow-hidden h-9 rounded-md px-5 text-sm font-semibold text-white bg-gradient-to-r from-[#FF3B30] to-[#BC00DD] transition-transform active:scale-95">
-                  <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <span className="relative flex items-center gap-1.5">
-                    Register <FiArrowUpRight size={15} />
-                  </span>
-                </button>
+                <Button 
+                  className="h-9 rounded-md px-5 text-sm font-semibold text-white bg-gradient-to-r from-[#9C27B0] to-[#E91E63] shadow-lg shadow-purple-500/20 active:scale-95 transition-transform"
+                  endContent={<FiArrowUpRight size={15} />}
+                >
+                  Register
+                </Button>
               </Link>
             </div>
           ) : (
@@ -99,7 +83,6 @@ export default function Navbar() {
                   <Avatar.Fallback>{user.name.charAt(0)}</Avatar.Fallback>
                 </Avatar>
               </Dropdown.Trigger>
-
               <Dropdown.Popover className="w-72 border border-divider bg-content1 text-foreground">
                 <div className="border-b border-divider px-4 py-4">
                   <div className="flex items-center gap-3">
@@ -113,27 +96,19 @@ export default function Navbar() {
                     </div>
                   </div>
                 </div>
-
                 <Dropdown.Menu>
                   <Dropdown.Item id="dashboard" textValue="dashboard">
                     <Link href="/dashboard" className="flex items-center gap-3 text-muted-foreground hover:text-foreground">
-                      <MdDashboard size={18} />
-                      <Label className="text-inherit">Dashboard</Label>
+                      <MdDashboard size={18} /><Label className="text-inherit">Dashboard</Label>
                     </Link>
                   </Dropdown.Item>
-
                   <Dropdown.Item id="profile" textValue="profile">
                     <Link href="/profile" className="flex items-center gap-3 text-muted-foreground hover:text-foreground">
-                      <CgProfile size={18} />
-                      <Label className="text-inherit">Profile</Label>
+                      <CgProfile size={18} /><Label className="text-inherit">Profile</Label>
                     </Link>
                   </Dropdown.Item>
-
                   <Dropdown.Item id="logout" textValue="logout" variant="danger" onClick={handleSignOut}>
-                    <div className="flex items-center gap-3">
-                      <BiLogOut size={18} />
-                      <Label>Logout</Label>
-                    </div>
+                    <div className="flex items-center gap-3"><BiLogOut size={18} /><Label>Logout</Label></div>
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown.Popover>
@@ -141,52 +116,44 @@ export default function Navbar() {
           )}
         </div>
 
-        <button
-          className="lg:hidden text-foreground"
+        <Button 
+          isIconOnly 
+          variant="light" 
+          radius="md"
+          className="lg:hidden text-foreground min-w-0" 
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           {isMenuOpen ? <HiXMark size={24} /> : <HiBars3 size={24} />}
-        </button>
+        </Button>
       </nav>
 
       {isMenuOpen && (
         <div className="mx-auto mt-2 max-w-7xl overflow-hidden rounded-xl border border-divider bg-background shadow-2xl lg:hidden">
           <ul className="flex flex-col p-3 gap-1">
-            <li>
-              <Link href="/" className="block rounded-lg px-4 py-2.5 text-sm font-medium text-muted-foreground hover:bg-default-100 hover:text-foreground">
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link href="/tickets" className="block rounded-lg px-4 py-2.5 text-sm font-medium text-muted-foreground hover:bg-default-100 hover:text-foreground">
-                All Tickets
-              </Link>
-            </li>
-            <li>
-              <Link href="/routes" className="block rounded-lg px-4 py-2.5 text-sm font-medium text-muted-foreground hover:bg-default-100 hover:text-foreground">
-                Routes
-              </Link>
-            </li>
-            <li>
-              <Link href="/contact" className="block rounded-lg px-4 py-2.5 text-sm font-medium text-muted-foreground hover:bg-default-100 hover:text-foreground">
-                Contact
-              </Link>
-            </li>
-
-            <div className="mt-2 border-t border-divider pt-3 px-2 pb-2">
+            {["Home|/", "All Tickets|/tickets", "Routes|/routes", "Contact|/contact"].map((item) => {
+              const [label, href] = item.split("|");
+              return (
+                <li key={href}>
+                  <Link href={href} className="block rounded-lg px-4 py-2.5 text-sm font-medium text-muted-foreground hover:bg-default-100 hover:text-foreground">
+                    {label}
+                  </Link>
+                </li>
+              );
+            })}
+            <div className="mt-2 border-t border-divider pt-3 px-2 pb-2 flex flex-col gap-2">
               {user ? (
-                <button className="w-full h-10 rounded-md text-sm font-medium text-foreground bg-default-100 hover:bg-default-200 transition-colors">
+                <Button radius="md" className="w-full h-10 text-sm font-medium text-foreground bg-default-100 hover:bg-default-200 transition-colors">
                   Dashboard
-                </button>
+                </Button>
               ) : (
-                <div className="flex flex-col gap-2">
-                  <button className="w-full h-10 rounded-md text-sm font-medium text-muted-foreground hover:bg-default-100 transition-colors">
+                <>
+                  <Button variant="bordered" className="w-full h-10 text-sm font-medium text-[#0D9488] border-[#0D9488]/30 bg-[#0D9488]/5 hover:bg-[#0D9488]/10 transition-colors">
                     Login
-                  </button>
-                  <button className="w-full h-10 rounded-md text-sm font-semibold text-white bg-gradient-to-r from-[#FF3B30] to-[#BC00DD]">
+                  </Button>
+                  <Button className="w-full rounded-md h-10 text-sm font-semibold text-white bg-gradient-to-r from-[#9C27B0] to-[#E91E63]">
                     Register
-                  </button>
-                </div>
+                  </Button>
+                </>
               )}
             </div>
           </ul>
