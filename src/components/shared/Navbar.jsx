@@ -10,6 +10,7 @@ import { CgProfile } from "react-icons/cg";
 import { FiArrowUpRight } from "react-icons/fi";
 import { MdDashboard } from "react-icons/md";
 import { FaBus } from "react-icons/fa";
+import ThemeToggle from "../ThemeToggle";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -45,14 +46,7 @@ export default function Navbar() {
         </ul>
 
         <div className="hidden items-center gap-4 lg:flex">
-          <Button 
-            isIconOnly
-            variant="bordered"
-            radius="md"
-            className="h-9 w-9 border-divider bg-content1 text-muted-foreground hover:text-foreground hover:border-default-400 min-w-0"
-          >
-            <FaMoon size={13} />
-          </Button>
+          <ThemeToggle></ThemeToggle>
 
           {!user ? (
             <div className="flex items-center gap-2">
