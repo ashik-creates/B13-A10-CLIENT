@@ -1,5 +1,6 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import {
   Alert,
   Button,
@@ -25,20 +26,29 @@ const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => {
     setIsLoading(true);
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
+
     const user = Object.fromEntries(formData.entries());
 
-    console.log("Logging in user:", user);
-    
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    const { data, error } = await authClient.signIn.email({
+      email: user.email,
+      password: user.password,
+    });
 
     setIsLoading(false);
-    toast.success("Welcome back!");
-    router.push("/dashboard");
+
+    if (data) {
+      toast.success("Welcome Back!");
+      window.location.href = "/";
+    }
+
+    if (error) {
+      toast.error(error.message);
+    }
   };
 
   const googleSignIn = () => {

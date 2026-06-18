@@ -1,5 +1,6 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import {
   Alert,
   Button,
@@ -26,18 +27,33 @@ const RegisterPage = () => {
   const router = useRouter();
 
   const handleSubmit = async (e) => {
-    setIsLoading(true);
     e.preventDefault();
 
+    setMessage("");
+    setIsLoading(true);
+
     const formData = new FormData(e.currentTarget);
+
     const user = Object.fromEntries(formData.entries());
 
-    console.log("Registering user:", user);
-    
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    const { error } = await authClient.signUp.email({
+      name: user.name,
+      email: user.email,
+      password: user.password,
+      image: user.image || undefined,
+    });
 
     setIsLoading(false);
+
+    if (error) {
+      setMessage(error.message);
+      return;
+    }
+
+    await authClient.signOut();
+
     toast.success("Registration successful! Please login.");
+
     router.push("/login");
   };
 
@@ -52,11 +68,17 @@ const RegisterPage = () => {
           <Link href="/" className="flex items-center gap-3 group mb-4">
             <div className="relative flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-[#FF3B30] via-[#9C27B0] to-[#00D2FF] p-[1.5px]">
               <div className="flex h-full w-full items-center justify-center rounded-[7px] bg-background">
-                <FaBus size={15} className="text-foreground transition-transform group-hover:scale-110" />
+                <FaBus
+                  size={15}
+                  className="text-foreground transition-transform group-hover:scale-110"
+                />
               </div>
             </div>
             <h1 className="font-serif text-xl font-bold tracking-tight text-foreground">
-              ticket<span className="font-sans font-light text-muted-foreground">bari</span>
+              ticket
+              <span className="font-sans font-light text-muted-foreground">
+                bari
+              </span>
             </h1>
           </Link>
           <h2 className="font-serif text-2xl font-bold text-foreground tracking-tight text-center">
@@ -68,11 +90,18 @@ const RegisterPage = () => {
         </div>
 
         <Form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <TextField isRequired name="name" type="text" className="flex flex-col gap-1.5 w-full">
-            <Label className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">Name</Label>
-            <Input 
-              placeholder="Enter your name" 
-              className="w-full h-11 px-3.5 rounded-xl border border-divider bg-background/50 placeholder-muted-foreground focus:outline-none focus:border-[#9C27B0] transition-all duration-200" 
+          <TextField
+            isRequired
+            name="name"
+            type="text"
+            className="flex flex-col gap-1.5 w-full"
+          >
+            <Label className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+              Name
+            </Label>
+            <Input
+              placeholder="Enter your name"
+              className="w-full h-11 px-3.5 rounded-xl border border-divider bg-background/50 placeholder-muted-foreground focus:outline-none focus:border-[#9C27B0] transition-all duration-200"
             />
             <FieldError className="text-xs text-danger font-medium mt-0.5" />
           </TextField>
@@ -89,10 +118,12 @@ const RegisterPage = () => {
               return null;
             }}
           >
-            <Label className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">Email Address</Label>
-            <Input 
-              placeholder="john@example.com" 
-              className="w-full h-11 px-3.5 rounded-xl border border-divider bg-background/50 placeholder-muted-foreground focus:outline-none focus:border-[#9C27B0] transition-all duration-200" 
+            <Label className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+              Email Address
+            </Label>
+            <Input
+              placeholder="john@example.com"
+              className="w-full h-11 px-3.5 rounded-xl border border-divider bg-background/50 placeholder-muted-foreground focus:outline-none focus:border-[#9C27B0] transition-all duration-200"
             />
             <FieldError className="text-xs text-danger font-medium mt-0.5" />
           </TextField>
@@ -103,26 +134,38 @@ const RegisterPage = () => {
             type="password"
             className="flex flex-col gap-1.5 w-full"
             validate={(value) => {
-              if (value.length < 6) return "Password must be at least 6 characters";
-              if (!/[A-Z]/.test(value)) return "Password must contain at least one uppercase letter";
-              if (!/[a-z]/.test(value)) return "Password must contain at least one lowercase letter";
-              if (!/[0-9]/.test(value)) return "Password must contain at least one number";
+              if (value.length < 6)
+                return "Password must be at least 6 characters";
+              if (!/[A-Z]/.test(value))
+                return "Password must contain at least one uppercase letter";
+              if (!/[a-z]/.test(value))
+                return "Password must contain at least one lowercase letter";
+              if (!/[0-9]/.test(value))
+                return "Password must contain at least one number";
               return null;
             }}
           >
-            <Label className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">Password</Label>
-            <Input 
-              placeholder="••••••••" 
-              className="w-full h-11 px-3.5 rounded-xl border border-divider bg-background/50 placeholder-muted-foreground focus:outline-none focus:border-[#9C27B0] transition-all duration-200" 
+            <Label className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+              Password
+            </Label>
+            <Input
+              placeholder="••••••••"
+              className="w-full h-11 px-3.5 rounded-xl border border-divider bg-background/50 placeholder-muted-foreground focus:outline-none focus:border-[#9C27B0] transition-all duration-200"
             />
             <FieldError className="text-xs text-danger font-medium mt-0.5" />
           </TextField>
 
-          <TextField name="image" type="url" className="flex flex-col gap-1.5 w-full">
-            <Label className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">Profile Image URL</Label>
-            <Input 
-              placeholder="https://example.com/avatar.jpg" 
-              className="w-full h-11 px-3.5 rounded-xl border border-divider bg-background/50 placeholder-muted-foreground focus:outline-none focus:border-[#9C27B0] transition-all duration-200" 
+          <TextField
+            name="image"
+            type="url"
+            className="flex flex-col gap-1.5 w-full"
+          >
+            <Label className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+              Profile Image URL
+            </Label>
+            <Input
+              placeholder="https://example.com/avatar.jpg"
+              className="w-full h-11 px-3.5 rounded-xl border border-divider bg-background/50 placeholder-muted-foreground focus:outline-none focus:border-[#9C27B0] transition-all duration-200"
             />
             <FieldError className="text-xs text-danger font-medium mt-0.5" />
           </TextField>
@@ -145,7 +188,9 @@ const RegisterPage = () => {
 
         <div className="flex justify-center items-center gap-3 my-1">
           <Separator className="flex-1 bg-divider h-[1px]" />
-          <div className="whitespace-nowrap text-xs text-muted-foreground font-medium tracking-wide uppercase">Or register with</div>
+          <div className="whitespace-nowrap text-xs text-muted-foreground font-medium tracking-wide uppercase">
+            Or register with
+          </div>
           <Separator className="flex-1 bg-divider h-[1px]" />
         </div>
 
@@ -160,7 +205,9 @@ const RegisterPage = () => {
         <p className="text-center text-sm text-muted-foreground mt-1">
           Already have an account?{" "}
           <Link href={"/login"}>
-            <span className="text-[#9C27B0] font-semibold hover:underline cursor-pointer transition-colors">Sign in instead</span>
+            <span className="text-[#9C27B0] font-semibold hover:underline cursor-pointer transition-colors">
+              Sign in instead
+            </span>
           </Link>
         </p>
       </Card>
