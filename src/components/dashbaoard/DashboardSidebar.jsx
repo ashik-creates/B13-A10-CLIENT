@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Button, Drawer } from "@heroui/react";
+import { Button, Drawer, Spinner } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
 import {
   FaBullhorn,
@@ -23,7 +23,7 @@ import { BiLogOut } from "react-icons/bi";
 
 const DashboardSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { data: session } = authClient.useSession();
+  const { data: session, isPending } = authClient.useSession();
   const currentUser = session?.user;
   const role = currentUser?.role || "user";
 
@@ -108,6 +108,14 @@ const DashboardSidebar = () => {
 
   const navItems = dashboardItems[role] || dashboardItems.user;
 
+  if (isPending) {
+    return (
+      <div className="h-96 max-w-60 w-full flex justify-center items-center text-sm font-medium">
+        <Spinner></Spinner>
+      </div>
+    );
+  }
+
   return (
     <>
       <div className="fixed top-4 left-4 z-50 md:hidden">
@@ -120,12 +128,14 @@ const DashboardSidebar = () => {
         </Button>
       </div>
 
-      <nav className="hidden h-screen w-64 flex-col gap-5 border-r border-divider bg-background p-6 md:flex justify-between">
-        <div className="flex flex-col gap-5 w-full">
-          <Link href="/" className="flex items-center gap-3 px-2 py-2">
+      <nav className="hidden h-screen w-64 flex-col gap-5 border-r border-divider bg-background p-6 md:flex justify-between sticky left-0 top-0">
+        <div className="flex flex-col gap-5 w-full ">
+          <Link href="/" className="flex items-center gap-3 px-2 py-4 border-b border-gray-200">
             <div className="relative flex h-9 w-9 items-center justify-center rounded-lg bg-linear-to-br from-[#FF3B30] via-[#9C27B0] to-[#00D2FF] p-[1.5px]">
               <div className="flex h-full w-full items-center justify-center rounded-[7px] bg-background">
-                <span className="text-xs font-bold"><FaBus /></span>
+                <span className="text-xs font-bold">
+                  <FaBus />
+                </span>
               </div>
             </div>
 

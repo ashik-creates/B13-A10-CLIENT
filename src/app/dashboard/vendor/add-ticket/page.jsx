@@ -1,6 +1,8 @@
 "use client";
 
+import { addTicket } from "@/lib/action/ticket";
 import { authClient } from "@/lib/auth-client";
+import { imageUpload } from "@/lib/imageUpload";
 import {
   Button,
   Card,
@@ -40,9 +42,16 @@ const AddTicket = () => {
     setIsLoading(true);
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
-    data.perks = formData.getAll("perks")
-
-    console.log(data);
+    data.perks = formData.getAll("perks");
+    const image = await imageUpload(data.image);
+    const ticket = {
+      ...data,
+      status: "pending",
+      image: image.url,
+    };
+    const resData = await addTicket(ticket);
+    console.log(resData);
+    setIsLoading(false);
   };
 
   if (isPending) {
@@ -251,7 +260,7 @@ const AddTicket = () => {
 
           <div className="flex flex-col gap-2 w-full">
             <Label className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-              Upload Route Banner Image
+              Upload Image
             </Label>
             <label className="flex h-32 w-full cursor-pointer flex-col items-center justify-center rounded-xl border border-divider bg-background/50 border-dashed transition-all duration-200 hover:border-[#9C27B0] hover:bg-default-50">
               <div className="flex flex-col items-center justify-center gap-1 text-center">
@@ -267,6 +276,7 @@ const AddTicket = () => {
               </div>
               <input
                 type="file"
+                name="image"
                 accept="image/*"
                 className="hidden"
                 onChange={handleImageChange}
@@ -304,11 +314,11 @@ const AddTicket = () => {
 
           <Button
             type="submit"
-            isLoading={isLoading}
+            isDisabled={isLoading}
             className="w-full h-11 text-sm font-semibold text-white bg-linear-to-r from-[#9C27B0] to-[#E91E63] shadow-lg shadow-purple-500/20 rounded-xl active:scale-95 transition-transform flex items-center justify-center gap-2 mt-4"
           >
             {!isLoading && <FaPlus size={14} />}
-            {isLoading ? "Publishing Route..." : "Add Ticket"}
+            {isLoading ? "Publishing Ticket..." : "Add Ticket"}
           </Button>
         </Form>
       </Card>
