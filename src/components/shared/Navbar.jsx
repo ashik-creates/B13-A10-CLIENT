@@ -11,17 +11,21 @@ import { FiArrowUpRight } from "react-icons/fi";
 import { FaBus } from "react-icons/fa";
 import ThemeToggle from "../ThemeToggle";
 import toast from "react-hot-toast";
+import { usePathname } from "next/navigation";
+import NavLink from "./NavLink";
 
-export default function Navbar() {
+const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const { data: session, isPending } = authClient.useSession();
-
   const user = session?.user;
+  const pathname = usePathname();
+
+  if (pathname.includes("dashboard")) {
+    return null;
+  }
 
   const handleSignOut = async () => {
     await authClient.signOut();
-
     toast.success("Logged out successfully");
   };
 
@@ -33,7 +37,7 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 border-b border-divider/50 bg-background/60 px-4 py-3 backdrop-blur-xl">
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
         <Link href="/" className="group flex items-center gap-3">
-          <div className="relative flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-[#FF3B30] via-[#9C27B0] to-[#00D2FF] p-[1.5px]">
+          <div className="relative flex h-9 w-9 items-center justify-center rounded-lg bg-linear-to-br from-[#FF3B30] via-[#9C27B0] to-[#00D2FF] p-[1.5px]">
             <div className="flex h-full w-full items-center justify-center rounded-[7px] bg-background">
               <FaBus
                 size={15}
@@ -52,31 +56,14 @@ export default function Navbar() {
 
         <ul className="hidden items-center gap-1 lg:flex">
           <li>
-            <Link
-              href="/"
-              className="rounded-md px-4 py-2 text-sm font-medium text-muted-foreground transition hover:bg-default-100 hover:text-foreground"
-            >
-              Home
-            </Link>
+            <NavLink href="/">Home</NavLink>
           </li>
-
           <li>
-            <Link
-              href="/tickets"
-              className="rounded-md px-4 py-2 text-sm font-medium text-muted-foreground transition hover:bg-default-100 hover:text-foreground"
-            >
-              All Tickets
-            </Link>
+            <NavLink href="/tickets">All Tickets</NavLink>
           </li>
-
           {user && (
             <li>
-              <Link
-                href="/dashboard"
-                className="rounded-md px-4 py-2 text-sm font-medium text-muted-foreground transition hover:bg-default-100 hover:text-foreground"
-              >
-                Dashboard
-              </Link>
+              <NavLink href={`/dashboard/${user?.role}`}>Dashboard</NavLink>
             </li>
           )}
         </ul>
@@ -97,7 +84,7 @@ export default function Navbar() {
 
               <Link href="/register">
                 <Button
-                  className="h-9 rounded-md bg-gradient-to-r from-[#9C27B0] to-[#E91E63] px-5 text-sm font-semibold text-white shadow-lg shadow-purple-500/20 transition-transform active:scale-95"
+                  className="h-9 rounded-md bg-linear-to-r from-[#9C27B0] to-[#E91E63] px-5 text-sm font-semibold text-white shadow-lg shadow-purple-500/20 transition-transform active:scale-95"
                   endContent={<FiArrowUpRight size={15} />}
                 >
                   Register
@@ -127,7 +114,6 @@ export default function Navbar() {
 
                     <div>
                       <h4 className="text-sm font-semibold">{user?.name}</h4>
-
                       <p className="text-xs text-muted-foreground">
                         {user?.email}
                       </p>
@@ -174,31 +160,20 @@ export default function Navbar() {
         <div className="mx-auto mt-2 max-w-7xl overflow-hidden rounded-xl border border-divider bg-background shadow-2xl lg:hidden">
           <ul className="flex flex-col gap-1 p-3">
             <li>
-              <Link
-                href="/"
-                className="block rounded-lg px-4 py-2.5 text-sm font-medium text-muted-foreground hover:bg-default-100 hover:text-foreground"
-              >
+              <NavLink mobile href="/" onClick={() => setIsMenuOpen(false)}>
                 Home
-              </Link>
+              </NavLink>
             </li>
-
             <li>
-              <Link
-                href="/tickets"
-                className="block rounded-lg px-4 py-2.5 text-sm font-medium text-muted-foreground hover:bg-default-100 hover:text-foreground"
-              >
+              <NavLink mobile href="/tickets" onClick={() => setIsMenuOpen(false)}>
                 All Tickets
-              </Link>
+              </NavLink>
             </li>
-
             {user && (
               <li>
-                <Link
-                  href="/dashboard"
-                  className="block rounded-lg px-4 py-2.5 text-sm font-medium text-muted-foreground hover:bg-default-100 hover:text-foreground"
-                >
+                <NavLink mobile href={`/dashboard/${user?.role}`} onClick={() => setIsMenuOpen(false)}>
                   Dashboard
-                </Link>
+                </NavLink>
               </li>
             )}
 
@@ -209,26 +184,26 @@ export default function Navbar() {
 
               {user ? (
                 <div className="flex flex-col gap-2">
-                  <Link href="/profile">
+                  <Link href="/profile" onClick={() => setIsMenuOpen(false)}>
                     <Button variant="bordered" className="w-full">
                       My Profile
                     </Button>
                   </Link>
 
-                  <Button color="danger" variant="flat" onClick={handleSignOut}>
+                  <Button color="danger" variant="flat" onClick={() => { handleSignOut(); setIsMenuOpen(false); }}>
                     Logout
                   </Button>
                 </div>
               ) : (
                 <div className="flex flex-col gap-2">
-                  <Link href="/login">
+                  <Link href="/login" onClick={() => setIsMenuOpen(false)}>
                     <Button variant="bordered" className="w-full">
                       Login
                     </Button>
                   </Link>
 
-                  <Link href="/register">
-                    <Button className="w-full bg-gradient-to-r from-[#9C27B0] to-[#E91E63] text-white">
+                  <Link href="/register" onClick={() => setIsMenuOpen(false)}>
+                    <Button className="w-full bg-linear-to-r from-[#9C27B0] to-[#E91E63] text-white">
                       Register
                     </Button>
                   </Link>
@@ -240,4 +215,6 @@ export default function Navbar() {
       )}
     </header>
   );
-}
+};
+
+export default Navbar;

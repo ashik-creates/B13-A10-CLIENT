@@ -33,7 +33,7 @@ export default function Banner() {
 
             <h1 className="font-serif text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl leading-[1.1]">
               Your Ticket to Every Destination,{" "}
-              <span className="bg-gradient-to-r from-[#FF3B30] via-[#9C27B0] to-[#00D2FF] bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-[#FF3B30] via-[#9C27B0] to-[#00D2FF] bg-clip-text text-transparent">
                 Made Effortless
               </span>
             </h1>
@@ -44,7 +44,7 @@ export default function Banner() {
 
             <div className="mt-10 flex flex-wrap gap-4">
               <Button 
-                className="h-12 rounded-md px-6 text-sm font-semibold text-white bg-gradient-to-r from-[#9C27B0] to-[#E91E63] shadow-xl shadow-purple-500/20 active:scale-95 transition-transform"
+                className="h-12 rounded-md px-6 text-sm font-semibold text-white bg-linear-to-r from-[#9C27B0] to-[#E91E63] shadow-xl shadow-purple-500/20 active:scale-95 transition-transform"
                 endContent={<FiArrowRight size={16} />}
               >
                 Book Tickets Now

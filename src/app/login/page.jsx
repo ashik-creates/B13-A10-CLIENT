@@ -60,7 +60,7 @@ const LoginPage = () => {
       <Card className="max-w-md w-full shadow-xl border bg-background/60 backdrop-blur-xl p-8 border-divider/50 rounded-2xl flex flex-col gap-6">
         <div className="flex flex-col items-center mb-4">
           <Link href="/" className="flex items-center gap-3 group mb-4">
-            <div className="relative flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-[#FF3B30] via-[#9C27B0] to-[#00D2FF] p-[1.5px]">
+            <div className="relative flex h-9 w-9 items-center justify-center rounded-lg bg-linear-to-br from-[#FF3B30] via-[#9C27B0] to-[#00D2FF] p-[1.5px]">
               <div className="flex h-full w-full items-center justify-center rounded-[7px] bg-background">
                 <FaBus size={15} className="transition-transform group-hover:scale-110" />
               </div>
@@ -120,7 +120,7 @@ const LoginPage = () => {
 
           <Button
             isDisabled={isLoading}
-            className="w-full h-11 text-sm font-semibold text-white bg-gradient-to-r from-[#9C27B0] to-[#E91E63] shadow-lg shadow-purple-500/20 rounded-xl active:scale-95 transition-transform flex items-center justify-center gap-2 mt-2"
+            className="w-full h-11 text-sm font-semibold text-white bg-linear-to-r from-[#9C27B0] to-[#E91E63] shadow-lg shadow-purple-500/20 rounded-xl active:scale-95 transition-transform flex items-center justify-center gap-2 mt-2"
             type="submit"
           >
             <BiCheck size={20} />
