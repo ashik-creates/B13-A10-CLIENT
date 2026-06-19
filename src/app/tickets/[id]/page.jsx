@@ -9,6 +9,7 @@ import {
 import { Button } from "@heroui/react";
 import CountdownTimer from "@/components/ticketDetails/CountDownTimer";
 import { getSingleTicket } from "@/lib/api/ticket";
+import BookingModal from "@/components/ticketDetails/BookingModal";
 
 const icons = {
   bus: FaBus,
@@ -144,17 +145,7 @@ const TicketDetailsPage = async ({ params }) => {
             </div>
           )}
 
-          <Button
-            size="lg"
-            isDisabled={disableBooking}
-            className="mt-6 w-full bg-linear-to-r from-[#9C27B0] to-[#E91E63] text-white"
-          >
-            {isExpired
-              ? "Departure Passed"
-              : isSoldOut
-                ? "Sold Out"
-                : "Book Now"}
-          </Button>
+          <BookingModal ticket={ticket} disableBooking={disableBooking} />
         </div>
       </div>
     </section>

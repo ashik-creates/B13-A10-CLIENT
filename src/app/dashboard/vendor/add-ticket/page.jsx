@@ -42,19 +42,24 @@ const AddTicketPage = () => {
     setIsLoading(true);
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
+
     data.perks = formData.getAll("perks");
+    data.quantity = Number(data.quantity);
+    data.price = Number(data.price);
+
     const image = await imageUpload(data.image);
+
     const ticket = {
       ...data,
+      image: image?.url,
       status: "pending",
-      image: image.url,
       vendorId: user.id,
     };
     const resData = await addTicket(ticket);
     setIsLoading(false);
 
-    if(resData.insertedId){
-        toast.success("Ticket added successfully")
+    if (resData.insertedId) {
+      toast.success("Ticket added successfully");
     }
   };
 
