@@ -1,7 +1,4 @@
-"use client";
-
-import Image from "next/image";
-import { Card, Chip } from "@heroui/react";
+import { Avatar, Card, Chip } from "@heroui/react";
 import { MdEmail } from "react-icons/md";
 import { FaUserTie } from "react-icons/fa";
 
@@ -12,24 +9,16 @@ const ProfileCard = ({ user }) => {
 
       <div className="px-6 pb-6">
         <div className="-mt-12 flex flex-col items-center">
-          <div className="relative h-24 w-24 overflow-hidden rounded-full border-4 border-background">
-            <Image
-              src={user?.image || "https://i.pravatar.cc/300"}
-              alt={user?.name || "Profile"}
-              fill
-              className="object-cover"
-            />
-          </div>
+          <Avatar className="relative h-25 w-25 overflow-hidden rounded-full border-4 border-background">
+            <Avatar.Image src={user?.image} alt={user?.name} />
+            <Avatar.Fallback>{user?.name?.charAt(0)}</Avatar.Fallback>
+          </Avatar>
 
           <h2 className="mt-4 text-2xl font-bold">{user?.name}</h2>
 
           <p className="text-sm text-default-500">{user?.email}</p>
 
-          <Chip
-            variant="flat"
-            color="secondary"
-            className="mt-3 capitalize"
-          >
+          <Chip variant="flat" color="secondary" className="mt-3 capitalize">
             {user?.role || "Vendor"}
           </Chip>
         </div>
@@ -40,9 +29,7 @@ const ProfileCard = ({ user }) => {
 
             <div>
               <p className="text-xs text-default-500">Account Type</p>
-              <p className="font-medium capitalize">
-                {user?.role || "Vendor"}
-              </p>
+              <p className="font-medium capitalize">{user?.role || "Vendor"}</p>
             </div>
           </div>
 

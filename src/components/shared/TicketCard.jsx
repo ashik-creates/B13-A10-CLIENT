@@ -75,7 +75,7 @@ const TicketCard = ({ ticket }) => {
             </p>
 
             <h3 className="bg-linear-to-r from-[#9C27B0] to-[#E91E63] bg-clip-text text-3xl font-bold text-transparent">
-              ${ticket.price}
+              ৳{ticket.price}
             </h3>
           </div>
 
@@ -115,7 +115,7 @@ const TicketCard = ({ ticket }) => {
           </div>
 
           <Link href={`/tickets/${ticket._id}`}>
-            <Button className="bg-linear-to-r from-[#9C27B0] to-[#E91E63] text-white">
+            <Button className="bg-linear-to-r from-[#9C27B0] to-[#E91E63] rounded-md text-white">
               See Details
             </Button>
           </Link>

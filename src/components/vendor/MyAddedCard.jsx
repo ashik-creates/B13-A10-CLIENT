@@ -69,7 +69,7 @@ const MyAddedCard = ({ ticket }) => {
             <p className="text-xs text-default-500">Ticket Price</p>
 
             <h3 className="bg-linear-to-r from-[#9C27B0] to-[#E91E63] bg-clip-text text-2xl font-bold text-transparent">
-              ${ticket.price}
+              ৳{ticket.price}
             </h3>
           </div>
 
