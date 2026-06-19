@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import { Button, Card } from "@heroui/react";
 import { FaBus, FaTrain, FaPlane, FaShip } from "react-icons/fa";
@@ -8,7 +6,7 @@ const transportIcons = {
   bus: <FaBus size={16} />,
   train: <FaTrain size={16} />,
   plane: <FaPlane size={16} />,
-  launch: <FaShip size={16} />,
+  ship: <FaShip size={16} />,
 };
 
 const MyAddedCard = ({ ticket }) => {

@@ -1,7 +1,7 @@
 import ProfileCard from "@/components/shared/ProfileCard";
 import { getUserSession } from "@/lib/getSession";
 
-const DashboardUserProfilePage = async() => {
+const AdminDashboardProfilePage = async() => {
     const user = await getUserSession()
 
     return (
@@ -11,4 +11,4 @@ const DashboardUserProfilePage = async() => {
     );
 };
 
-export default DashboardUserProfilePage;
+export default AdminDashboardProfilePage;

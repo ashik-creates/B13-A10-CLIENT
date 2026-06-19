@@ -5,3 +5,9 @@ export const getMyTicket = async (vendorId) => {
   const data = await res.json();
   return data;
 };
+
+export const getAllTicket = async () => {
+  const res = await fetch(`${baseURL}/api/tickets`);
+  const data = await res.json();
+  return data;
+};
