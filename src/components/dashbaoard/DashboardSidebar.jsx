@@ -64,7 +64,7 @@ const DashboardSidebar = () => {
       {
         icon: FaTicketSimple,
         label: "My Added Tickets",
-        link: "/dashboard/vendor/tickets",
+        link: "/dashboard/vendor/my-added-tickets",
       },
       {
         icon: FaClipboardList,

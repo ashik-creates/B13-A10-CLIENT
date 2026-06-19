@@ -20,7 +20,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { FaCloudUploadAlt, FaPlus, FaCheck } from "react-icons/fa";
 
-const AddTicket = () => {
+const AddTicketPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
   const [imageFile, setImageFile] = useState(null);
@@ -48,10 +48,14 @@ const AddTicket = () => {
       ...data,
       status: "pending",
       image: image.url,
+      vendorId: user.id,
     };
     const resData = await addTicket(ticket);
-    console.log(resData);
     setIsLoading(false);
+
+    if(resData.insertedId){
+        toast.success("Ticket added successfully")
+    }
   };
 
   if (isPending) {
@@ -140,8 +144,8 @@ const AddTicket = () => {
                   {[
                     { key: "bus", label: "Bus" },
                     { key: "train", label: "Train" },
-                    { key: "air", label: "Air" },
-                    { key: "launch", label: "Launch" },
+                    { key: "plane", label: "Plane" },
+                    { key: "ship", label: "Ship" },
                   ].map((item) => (
                     <ListBox.Item
                       key={item.key}
@@ -224,7 +228,7 @@ const AddTicket = () => {
                   <label
                     key={perk}
                     htmlFor={`perk-${perk}`}
-                    className="flex items-center gap-2 px-4 py-2 rounded-full border border-divider bg-background text-sm transition-all duration-200 cursor-pointer hover:border-default-300 hover:bg-default-50 has-[:checked]:bg-[#EEEDFE] has-[:checked]:border-[#534AB7]"
+                    className="flex items-center gap-2 px-4 py-2 rounded-full border border-divider bg-background text-sm transition-all duration-200 cursor-pointer hover:border-default-300 hover:bg-default-50  has-[:checked]:border-[#534AB7]"
                   >
                     <Checkbox
                       id={`perk-${perk}`}
@@ -326,4 +330,4 @@ const AddTicket = () => {
   );
 };
 
-export default AddTicket;
+export default AddTicketPage;
