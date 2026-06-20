@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Button, Card } from "@heroui/react";
 import { FaBus, FaTrain, FaPlane, FaShip } from "react-icons/fa";
+import UpdateTicketModal from "./UpdateTicketModal";
 
 const transportIcons = {
   bus: <FaBus size={16} />,
@@ -110,12 +111,7 @@ const MyAddedCard = ({ ticket }) => {
         )}
 
         <div className="mt-auto flex gap-3 pt-5">
-          <Button
-            className="flex-1 bg-linear-to-r from-[#9C27B0] to-[#E91E63] text-white rounded-md"
-            isDisabled={isRejected}
-          >
-            Update
-          </Button>
+          <UpdateTicketModal ticket={ticket} isRejected={isRejected} />
 
           <Button
             className="flex-1 rounded-md"

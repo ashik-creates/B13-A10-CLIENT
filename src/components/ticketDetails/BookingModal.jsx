@@ -14,6 +14,7 @@ import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
 import { bookTicket } from "@/lib/action/booking";
 import { useRouter } from "next/navigation";
+import TicketDetailsPage from "@/app/tickets/[id]/page";
 
 const BookingModal = ({ ticket, disableBooking }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -39,7 +40,10 @@ const BookingModal = ({ ticket, disableBooking }) => {
     const booking = {
       ticketId: ticket._id,
       vendorId: ticket.vendorId,
+      ticketTitle: ticket.title,
       userId: user?.id,
+      userName: user?.name,
+      userEmail: user?.email,
       quantity: Number(quantity),
       totalPrice,
       status: "pending",

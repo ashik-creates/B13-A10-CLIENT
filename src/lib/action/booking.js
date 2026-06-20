@@ -15,3 +15,25 @@ export const bookTicket = async (bookingData) => {
 
   return data;
 };
+
+export const getRequestedBookings = async (vendorId) => {
+  const res = await fetch(`${baseURL}/api/user/bookings/${vendorId}`);
+
+  const data = await res.json();
+
+  return data;
+};
+
+export const updateBookingStatus = async (bookingId, status) => {
+  const res = await fetch(`${baseURL}/api/vendor/bookings/${bookingId}/status`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ status }),
+  });
+
+  const data = await res.json();
+
+  return data;
+};
