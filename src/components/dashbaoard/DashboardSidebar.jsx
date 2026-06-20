@@ -42,7 +42,7 @@ const DashboardSidebar = () => {
       {
         icon: FaTicketSimple,
         label: "My Booked Tickets",
-        link: "/dashboard/user/tickets",
+        link: "/dashboard/user/my-booked-tickets",
       },
       {
         icon: FaMoneyBillTransfer,
