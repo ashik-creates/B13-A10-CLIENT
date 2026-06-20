@@ -47,6 +47,12 @@ const AddTicketPage = () => {
     data.quantity = Number(data.quantity);
     data.price = Number(data.price);
 
+    if(!imageFile) {
+      toast.error("Please upload an image for the ticket.");
+      setIsLoading(false);
+      return;
+    }
+
     const image = await imageUpload(data.image);
 
     const ticket = {
@@ -60,6 +66,7 @@ const AddTicketPage = () => {
 
     if (resData.insertedId) {
       toast.success("Ticket added successfully");
+      router.push("/dashboard/vendor/my-added-tickets");
     }
   };
 

@@ -17,12 +17,15 @@ import toast from "react-hot-toast";
 import { FaCloudUploadAlt, FaPlus } from "react-icons/fa";
 import { authClient } from "@/lib/auth-client";
 import { imageUpload } from "@/lib/imageUpload";
+import { updateTicket } from "@/lib/action/ticket";
+import { useRouter } from "next/navigation";
 
 const UpdateTicketModal = ({ ticket, isRejected }) => {
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [isOpen, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const user = authClient.useSession()?.data?.user;
 
@@ -51,13 +54,21 @@ const UpdateTicketModal = ({ ticket, isRejected }) => {
     const data = Object.fromEntries(formData.entries());
     data.perks = formData.getAll("perks");
 
-    const image = await imageUpload(imageFile)
-    
+    const image = await imageUpload(imageFile);
+
     data.image = imageFile ? image.url : ticket?.image;
 
-    console.log(data);
+    const res = await updateTicket(ticket._id, data);
 
     setIsLoading(false);
+
+    if (res.modifiedCount > 0) {
+      toast.success("Ticket updated successfully");
+      setOpen(false);
+      router.refresh();
+    } else {
+      toast.error(res.message || "Failed to update ticket. Please try again.");
+    }
   };
 
   return (
