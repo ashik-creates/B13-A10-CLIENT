@@ -79,14 +79,9 @@ const DashboardSidebar = () => {
     ],
     admin: [
       {
-        icon: FaChartPie,
-        label: "Overview",
-        link: "/dashboard/admin",
-      },
-      {
         icon: FaCircleUser,
         label: "Admin Profile",
-        link: "/dashboard/admin/profile",
+        link: "/dashboard/admin",
       },
       {
         icon: FaTicketSimple,

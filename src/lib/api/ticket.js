@@ -17,3 +17,9 @@ export const getSingleTicket = async (ticketId) => {
   const data = await res.json();
   return data;
 };
+
+export const getAllTicketsForAdmin = async () => {
+  const res = await fetch(`${baseURL}/api/admin/tickets`);
+  const data = await res.json();
+  return data;
+}
