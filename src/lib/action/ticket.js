@@ -36,3 +36,16 @@ export const deleteTicket = async (ticketId) => {
   const data = await res.json();
   return data;
 };
+
+export const updateTicketStatus = async (ticketId, status) => {
+  const res = await fetch(`${baseURl}/api/admin/tickets/${ticketId}/status`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ status }),
+  });
+
+  const data = await res.json();
+  return data;
+};
