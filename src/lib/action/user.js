@@ -14,3 +14,15 @@ export const updateUserRole = async (userId, role) => {
 
   return res.json();
 };
+
+export const updateUserFraudStatus = async (userId, isFraud) => {
+  const res = await fetch(`${baseURL}/api/admin/users/${userId}/fraud`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ isFraud }),
+  });
+
+  return res.json();
+};

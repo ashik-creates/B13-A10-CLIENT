@@ -47,7 +47,7 @@ const AddTicketPage = () => {
     data.quantity = Number(data.quantity);
     data.price = Number(data.price);
 
-    if(!imageFile) {
+    if (!imageFile) {
       toast.error("Please upload an image for the ticket.");
       setIsLoading(false);
       return;
@@ -74,6 +74,41 @@ const AddTicketPage = () => {
     return (
       <div className="flex h-96 items-center justify-center text-sm font-medium">
         Loading Vendor Context...
+      </div>
+    );
+  }
+
+  if (user?.isFraud) {
+    return (
+      <div className="mx-auto max-w-2xl px-4 py-16">
+        <Card className="border border-danger/20 bg-danger/5 p-10 text-center">
+          <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-danger/10">
+            <FaCheck className="text-4xl text-danger" />
+          </div>
+
+          <h1 className="text-3xl font-bold text-danger">
+            Vendor Account Restricted
+          </h1>
+
+          <p className="mt-4 text-default-600">
+            Your account has been marked as fraudulent by an administrator.
+          </p>
+
+          <div className="mt-6 rounded-2xl border border-danger/20 bg-content1 p-5">
+            <h3 className="mb-3 font-semibold">You can no longer:</h3>
+
+            <ul className="space-y-2 text-sm text-default-500">
+              <li>• Add new tickets</li>
+              <li>• Publish travel routes</li>
+              <li>• Manage future ticket listings</li>
+            </ul>
+          </div>
+
+          <p className="mt-6 text-sm text-default-500">
+            Please contact platform support if you believe this action was taken
+            by mistake.
+          </p>
+        </Card>
       </div>
     );
   }

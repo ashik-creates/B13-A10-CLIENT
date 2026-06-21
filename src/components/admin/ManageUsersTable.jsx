@@ -9,6 +9,7 @@ import {
   HiBriefcase,
   HiExclamationTriangle,
 } from "react-icons/hi2";
+import FraudAlertModal from "./FraudAlertModal";
 
 const roleColor = {
   admin: "danger",
@@ -124,15 +125,7 @@ const ManageUsersTable = ({ users = [] }) => {
                           </Button>
 
                           {user.role === "vendor" && (
-                            <Button
-                              size="sm"
-                              color="danger"
-                              variant="flat"
-                              isDisabled={user.isFraud}
-                            >
-                              <HiExclamationTriangle size={16} />
-                              {user.isFraud ? "Marked Fraud" : "Mark as Fraud"}
-                            </Button>
+                            <FraudAlertModal user={user} />
                           )}
                         </div>
                       </Table.Cell>
