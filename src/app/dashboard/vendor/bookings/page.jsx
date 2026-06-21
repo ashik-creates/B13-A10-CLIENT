@@ -1,5 +1,5 @@
 import RequestedBookingsTable from "@/components/vendor/RequestedBookingsTable";
-import { getRequestedBookings } from "@/lib/action/booking";
+import { getRequestedBookings } from "@/lib/api/booking";
 import { getUserSession } from "@/lib/getSession";
 
 const RequestedBookingsPage = async () => {

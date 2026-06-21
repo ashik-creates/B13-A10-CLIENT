@@ -5,3 +5,11 @@ export const getMyBookedTickets = async (userId) => {
   const data = await res.json();
   return data;
 };
+
+export const getRequestedBookings = async (vendorId) => {
+  const res = await fetch(`${baseURL}/api/vendor/bookings/${vendorId}`);
+
+  const data = await res.json();
+
+  return data;
+};

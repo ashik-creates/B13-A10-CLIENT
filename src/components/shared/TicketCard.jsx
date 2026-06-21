@@ -16,7 +16,7 @@ const icons = {
   ship: FaShip,
 };
 
-const TicketCard = ({ ticket }) => {
+const TicketCard = ({ ticket = []}) => {
   const Icon = icons[ticket.transportType];
 
   return (

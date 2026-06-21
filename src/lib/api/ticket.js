@@ -23,3 +23,9 @@ export const getAllTicketsForAdmin = async () => {
   const data = await res.json();
   return data;
 }
+
+export const getAdvertisedTickets = async () => {
+  const res = await fetch(`${baseURL}/api/tickets/advertised/all`);
+  const data = await res.json();
+  return data;
+}
