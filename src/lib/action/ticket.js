@@ -49,3 +49,19 @@ export const updateTicketStatus = async (ticketId, status) => {
   const data = await res.json();
   return data;
 };
+
+export const updateTicketAdvertise = async (ticketId, isAdvertised) => {
+  const res = await fetch(
+    `${baseURl}/api/admin/tickets/${ticketId}/advertise`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ isAdvertised }),
+    }
+  );
+
+  const data = await res.json();
+  return data;
+};
