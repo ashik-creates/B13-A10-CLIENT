@@ -12,6 +12,12 @@ export const getAllTicket = async (queryString) => {
   return data;
 };
 
+export const getAllApprovedTicket = async () => {
+  const res = await fetch(`${baseURL}/api/admin/tickets/all`);
+  const data = await res.json();
+  return data;
+}
+
 export const getSingleTicket = async (ticketId) => {
   const res = await fetch(`${baseURL}/api/tickets/${ticketId}`);
   const data = await res.json();
