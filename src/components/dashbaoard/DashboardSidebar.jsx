@@ -74,7 +74,7 @@ const DashboardSidebar = () => {
       {
         icon: FaChartColumn,
         label: "Revenue Overview",
-        link: "/dashboard/vendor/revenue",
+        link: "/dashboard/vendor/revenue-overview",
       },
     ],
     admin: [

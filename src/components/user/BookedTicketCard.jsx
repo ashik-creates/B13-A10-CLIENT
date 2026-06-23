@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { Button, Chip } from "@heroui/react";
@@ -140,17 +140,13 @@ const BookedTicketCard = ({ booking }) => {
               Ticket Purchased
             </Button>
           ) : canPay ? (
-            <form action="/api/checkout_sessions" method="POST">
-              <section>
-                <Button
-                  onClick={handlePayment}
-                  className="w-full rounded-xl bg-linear-to-r from-[#9C27B0] to-[#E91E63] text-white"
-                >
-                  <FaCreditCard />
-                  Pay Now
-                </Button>
-              </section>
-            </form>
+            <Button
+              onClick={handlePayment}
+              className="w-full rounded-xl bg-linear-to-r from-[#9C27B0] to-[#E91E63] text-white"
+            >
+              <FaCreditCard />
+              Pay Now
+            </Button>
           ) : (
             <Link href={`/tickets/${booking.ticketId}`}>
               <Button variant="bordered" className="w-full rounded-xl">
