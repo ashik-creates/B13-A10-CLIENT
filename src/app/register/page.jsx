@@ -24,7 +24,6 @@ import { FaBus } from "react-icons/fa6";
 const RegisterPage = () => {
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -50,11 +49,9 @@ const RegisterPage = () => {
       return;
     }
 
-    await authClient.signOut();
+    toast.success("Registration successful");
 
-    toast.success("Registration successful! Please login.");
-
-    router.push("/login");
+    window.location.href = "/";
   };
 
   const googleSignIn = () => {

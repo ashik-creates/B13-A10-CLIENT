@@ -8,7 +8,6 @@ export default function Loading() {
           size="lg"
           color="secondary"
           label="Loading..."
-          labelColor="secondary"
         />
 
         <h2 className="mt-6 text-2xl font-bold">

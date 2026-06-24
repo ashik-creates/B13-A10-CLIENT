@@ -28,7 +28,7 @@ const RequestedBookingsTable = ({ bookings = [], user }) => {
 
   if (user?.isFraud) {
     return (
-      <div className="rounded-3xl border border-danger/30 bg-danger/10 p-6">
+      <div className="rounded-3xl border border-danger/30 my-5 bg-danger/10 p-6">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h2 className="text-xl font-bold text-danger">
@@ -50,7 +50,7 @@ const RequestedBookingsTable = ({ bookings = [], user }) => {
   }
 
   return (
-    <div className="rounded-2xl border border-divider bg-content1 p-5">
+    <div className="rounded-2xl border border-divider bg-content1 my-5  p-5">
       <div className="mb-5">
         <h2 className="text-2xl font-bold">Requested Bookings</h2>
 

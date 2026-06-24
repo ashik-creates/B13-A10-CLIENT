@@ -122,7 +122,7 @@ const Navbar = () => {
 
                 <Dropdown.Menu>
                   <Dropdown.Item id="profile">
-                    <Link href="/profile" className="flex items-center gap-3">
+                    <Link href={`/dashboard/${user?.role}`} className="flex items-center gap-3">
                       <CgProfile size={18} />
                       <Label>My Profile</Label>
                     </Link>
@@ -198,8 +198,7 @@ const Navbar = () => {
                   </Link>
 
                   <Button
-                    color="danger"
-                    variant="flat"
+                    variant="danger"
                     onClick={() => {
                       handleSignOut();
                       setIsMenuOpen(false);

@@ -61,7 +61,7 @@ const BookingModal = ({ ticket, disableBooking }) => {
     if (resData.insertedId) {
       toast.success("Ticket booked successfully!");
       setOpen(false);
-      router.refresh();
+      router.push("/dashboard/user/my-booked-tickets");
     } else {
       toast.error(resData.message || "Something went wrong!");
     }
