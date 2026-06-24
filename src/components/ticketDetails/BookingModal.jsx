@@ -14,7 +14,7 @@ import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
 import { bookTicket } from "@/lib/action/booking";
 import { useRouter } from "next/navigation";
-import TicketDetailsPage from "@/app/tickets/[id]/page";
+
 
 const BookingModal = ({ ticket, disableBooking }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -63,7 +63,7 @@ const BookingModal = ({ ticket, disableBooking }) => {
       setOpen(false);
       router.refresh();
     } else {
-      toast.error("Failed to book ticket. Please try again.");
+      toast.error(resData.message || "Something went wrong!");
     }
   };
 

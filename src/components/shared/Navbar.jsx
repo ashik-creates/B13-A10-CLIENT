@@ -61,11 +61,10 @@ const Navbar = () => {
           <li>
             <NavLink href="/tickets">All Tickets</NavLink>
           </li>
-          {user && (
-            <li>
-              <NavLink href={`/dashboard/${user?.role}`}>Dashboard</NavLink>
-            </li>
-          )}
+
+          <li>
+            <NavLink href={`/dashboard/${user?.role}`}>Dashboard</NavLink>
+          </li>
         </ul>
 
         <div className="hidden items-center gap-4 lg:flex">
@@ -165,13 +164,21 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink mobile href="/tickets" onClick={() => setIsMenuOpen(false)}>
+              <NavLink
+                mobile
+                href="/tickets"
+                onClick={() => setIsMenuOpen(false)}
+              >
                 All Tickets
               </NavLink>
             </li>
             {user && (
               <li>
-                <NavLink mobile href={`/dashboard/${user?.role}`} onClick={() => setIsMenuOpen(false)}>
+                <NavLink
+                  mobile
+                  href={`/dashboard/${user?.role}`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
                   Dashboard
                 </NavLink>
               </li>
@@ -190,7 +197,14 @@ const Navbar = () => {
                     </Button>
                   </Link>
 
-                  <Button color="danger" variant="flat" onClick={() => { handleSignOut(); setIsMenuOpen(false); }}>
+                  <Button
+                    color="danger"
+                    variant="flat"
+                    onClick={() => {
+                      handleSignOut();
+                      setIsMenuOpen(false);
+                    }}
+                  >
                     Logout
                   </Button>
                 </div>

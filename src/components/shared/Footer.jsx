@@ -44,8 +44,8 @@ export default function Footer() {
             <div className="flex flex-col gap-3 text-sm font-medium text-muted-foreground">
               <Link href="/" className="transition hover:text-foreground">Home</Link>
               <Link href="/tickets" className="transition hover:text-foreground">All Tickets</Link>
-              <Link href="/about" className="transition hover:text-foreground">About</Link>
-              <Link href="/contact" className="transition hover:text-foreground">Contact</Link>
+              <Link href="/" className="transition hover:text-foreground">About</Link>
+              <Link href="/" className="transition hover:text-foreground">Contact</Link>
             </div>
           </div>
 

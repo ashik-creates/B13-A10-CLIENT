@@ -5,22 +5,50 @@ import { Table, Button, Chip } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
-const RequestedBookingsTable = ({ bookings = [] }) => {
+const RequestedBookingsTable = ({ bookings = [], user }) => {
   const router = useRouter();
-  const handleAccept = async(bookingId) => {
+
+  const handleAccept = async (bookingId) => {
     const res = await updateBookingStatus(bookingId, "accepted");
-    if(res.modifiedCount > 0){
+
+    if (res.modifiedCount > 0) {
       toast.success("Booking accepted successfully");
       router.refresh();
     }
   };
-  const handleReject = async(bookingId) => {
+
+  const handleReject = async (bookingId) => {
     const res = await updateBookingStatus(bookingId, "rejected");
-    if(res.modifiedCount > 0){
+
+    if (res.modifiedCount > 0) {
       toast.success("Booking rejected successfully");
       router.refresh();
-    } 
+    }
   };
+
+  if (user?.isFraud) {
+    return (
+      <div className="rounded-3xl border border-danger/30 bg-danger/10 p-6">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h2 className="text-xl font-bold text-danger">
+              ⚠️ Fraud Account Detected
+            </h2>
+
+            <p className="mt-1 text-danger/80">
+              Your vendor account has been marked as fraudulent. You no longer
+              have access to booking requests.
+            </p>
+          </div>
+
+          <Chip color="danger" variant="flat" size="lg">
+            Fraud Vendor
+          </Chip>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="rounded-2xl border border-divider bg-content1 p-5">
       <div className="mb-5">
@@ -39,15 +67,10 @@ const RequestedBookingsTable = ({ bookings = [] }) => {
           >
             <Table.Header>
               <Table.Column isRowHeader>User</Table.Column>
-
               <Table.Column>Ticket Title</Table.Column>
-
               <Table.Column>Quantity</Table.Column>
-
               <Table.Column>Total Price</Table.Column>
-
               <Table.Column>Status</Table.Column>
-
               <Table.Column>Actions</Table.Column>
             </Table.Header>
 
@@ -57,9 +80,9 @@ const RequestedBookingsTable = ({ bookings = [] }) => {
                   bookings.map((booking) => (
                     <Table.Row key={booking._id}>
                       <Table.Cell>
-                        <div>
-                          <h4 className="font-semibold">{booking.userName}</h4>
-                        </div>
+                        <h4 className="font-semibold">
+                          {booking.userName}
+                        </h4>
                       </Table.Cell>
 
                       <Table.Cell>
@@ -68,9 +91,7 @@ const RequestedBookingsTable = ({ bookings = [] }) => {
                         </span>
                       </Table.Cell>
 
-                      <Table.Cell>
-                        <span className="font-medium">{booking.quantity}</span>
-                      </Table.Cell>
+                      <Table.Cell>{booking.quantity}</Table.Cell>
 
                       <Table.Cell>
                         <span className="font-semibold text-[#9C27B0]">
@@ -85,7 +106,9 @@ const RequestedBookingsTable = ({ bookings = [] }) => {
                               ? "success"
                               : booking.status === "rejected"
                                 ? "danger"
-                                : "warning"
+                                : booking.status === "paid"
+                                  ? "secondary"
+                                  : "warning"
                           }
                           variant="flat"
                           className="capitalize"
@@ -97,19 +120,29 @@ const RequestedBookingsTable = ({ bookings = [] }) => {
                       <Table.Cell>
                         <div className="flex items-center gap-2">
                           <Button
-                            onClick={() => handleAccept(booking._id)}
+                            onClick={() =>
+                              handleAccept(booking._id)
+                            }
                             size="sm"
                             className="bg-linear-to-r from-emerald-500 to-green-600 text-white shadow-md shadow-emerald-500/20"
-                            isDisabled={booking.status === "accepted"}
+                            isDisabled={
+                              booking.status === "accepted" ||
+                              booking.status === "paid"
+                            }
                           >
                             Accept
                           </Button>
 
                           <Button
-                            onClick={() => handleReject(booking._id)}
+                            onClick={() =>
+                              handleReject(booking._id)
+                            }
                             size="sm"
                             className="bg-linear-to-r from-rose-500 to-red-600 text-white shadow-md shadow-rose-500/20"
-                            isDisabled={booking.status === "rejected"}
+                            isDisabled={
+                              booking.status === "rejected" ||
+                              booking.status === "paid"
+                            }
                           >
                             Reject
                           </Button>

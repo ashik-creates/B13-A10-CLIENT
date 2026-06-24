@@ -7,7 +7,7 @@ const RequestedBookingsPage = async () => {
     const bookings = await getRequestedBookings(user?.id); 
     return (
         <div>
-            <RequestedBookingsTable bookings={bookings} />
+            <RequestedBookingsTable bookings={bookings} user={user} />
         </div>
     );
 };
