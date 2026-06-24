@@ -4,7 +4,7 @@ import { getAllApprovedTicket} from "@/lib/api/ticket";
 const AdvertiseTicketsPage = async () => {
     const tickets = await getAllApprovedTicket();
     return (
-        <div>
+        <div className="my-5">
             <AdvertiseTicketsTable tickets={tickets}></AdvertiseTicketsTable>
         </div>
     );

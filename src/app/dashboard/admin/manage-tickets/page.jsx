@@ -5,7 +5,7 @@ import React from 'react';
 const ManageTicketPage = async() => {
     const tickets = await getAllTicketsForAdmin();
     return (
-        <div>
+        <div className='my-5'>
            <ManageTicketsTable tickets={tickets} /> 
         </div>
     );

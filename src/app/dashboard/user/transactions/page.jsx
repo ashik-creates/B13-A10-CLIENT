@@ -6,7 +6,7 @@ const TransactionsPage = async() => {
     const user = await getUserSession();
     const transactions = await getPaymentsByUser(user.id);
     return (
-        <div>
+        <div className="my-5">
            <TransactionHistoryTable transactions={transactions} />
         </div>
     );

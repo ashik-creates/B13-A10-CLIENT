@@ -87,7 +87,7 @@ export default async function Success({ searchParams }) {
 
             <Link
               href="/"
-              className="rounded-full border border-divider px-6 py-3 text-center font-medium transition hover:bg-default-100"
+              className="rounded-md bg-linear-to-r from-[#9C27B0] to-[#E91E63] border border-divider px-6 py-3 text-center font-medium transition hover:bg-default-100"
             >
               Back to Home
             </Link>

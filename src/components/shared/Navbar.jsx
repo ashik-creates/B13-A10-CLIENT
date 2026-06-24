@@ -11,7 +11,7 @@ import { FiArrowUpRight } from "react-icons/fi";
 import { FaBus } from "react-icons/fa";
 import ThemeToggle from "../ThemeToggle";
 import toast from "react-hot-toast";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import NavLink from "./NavLink";
 
 const Navbar = () => {
@@ -19,6 +19,7 @@ const Navbar = () => {
   const { data: session, isPending } = authClient.useSession();
   const user = session?.user;
   const pathname = usePathname();
+  const router = useRouter();
 
   if (pathname.includes("dashboard")) {
     return null;
@@ -27,6 +28,7 @@ const Navbar = () => {
   const handleSignOut = async () => {
     await authClient.signOut();
     toast.success("Logged out successfully");
+    router.refresh();
   };
 
   if (isPending) {

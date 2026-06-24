@@ -20,16 +20,19 @@ import NavLink from "../shared/NavLink";
 import { FaBus } from "react-icons/fa";
 import toast from "react-hot-toast";
 import { BiLogOut } from "react-icons/bi";
+import { useRouter } from "next/navigation";
 
 const DashboardSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { data: session, isPending } = authClient.useSession();
   const currentUser = session?.user;
   const role = currentUser?.role || "user";
+  const router = useRouter();
 
   const handleSignOut = async () => {
     await authClient.signOut();
     toast.success("Logged out successfully");
+    router.refresh();
   };
 
   const dashboardItems = {

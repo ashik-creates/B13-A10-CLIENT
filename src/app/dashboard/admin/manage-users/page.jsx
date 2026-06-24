@@ -4,7 +4,7 @@ import { getAllUsers } from '@/lib/api/user';
 const ManageUsersPage = async() => {
     const users = await getAllUsers();
     return (
-        <div>
+        <div className='my-5'>
            <ManageUsersTable users={users} /> 
         </div>
     );

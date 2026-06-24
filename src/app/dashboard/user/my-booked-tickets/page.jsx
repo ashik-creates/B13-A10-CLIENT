@@ -8,7 +8,7 @@ const MyBookedTicketPage = async() => {
     console.log(userId);
     const bookedTickets = await getMyBookedTickets(userId);
     return (
-        <div className="grid grid-cols-2 gap-5 my-10 mx-4">
+        <div className="grid grid-cols-2 gap-5 my-10 mx-4 my-5">
             {bookedTickets.map((booking) => (
                 <BookedTicketCard key={booking._id} booking={booking}></BookedTicketCard>
             ))}

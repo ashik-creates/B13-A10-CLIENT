@@ -51,8 +51,10 @@ const LoginPage = () => {
     }
   };
 
-  const googleSignIn = () => {
-    console.log("Redirecting to Google Login...");
+  const googleSignIn = async() => {
+    await authClient.signIn.social({
+    provider: "google",
+  });
   };
 
   return (
