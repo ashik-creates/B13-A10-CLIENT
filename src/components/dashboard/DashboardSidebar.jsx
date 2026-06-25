@@ -178,7 +178,7 @@ const DashboardSidebar = () => {
         </div>
       </nav>
 
-      <div className="md:hidden">
+      <div className="md:hidden h-screen">
         <div
           onClick={() => setIsOpen(false)}
           className={`fixed inset-0 z-40 bg-black/50 transition-opacity duration-300 ${
