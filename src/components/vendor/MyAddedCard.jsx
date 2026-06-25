@@ -15,10 +15,8 @@ const MyAddedCard = ({ ticket }) => {
   const isRejected = ticket.status === "rejected";
 
   const statusStyles = {
-    pending:
-      "border border-amber-500/20 bg-amber-500/10 text-amber-500",
-    approved:
-      "border border-emerald-500/20 bg-emerald-500/10 text-emerald-500",
+    pending: "border border-amber-500/20 bg-amber-500/10 text-amber-500",
+    approved: "border border-emerald-500/20 bg-emerald-500/10 text-emerald-500",
     rejected: "border border-red-500/20 bg-red-500/10 text-red-500",
   };
 
@@ -86,7 +84,14 @@ const MyAddedCard = ({ ticket }) => {
           <p className="mb-1 text-xs text-default-500">Departure Date</p>
 
           <p className="font-medium">
-            {new Date(ticket.departureDateTime).toLocaleString()}
+            {new Date(ticket.departureDateTime).toLocaleString("en-BD", {
+              day: "numeric",
+              month: "short",
+              year: "numeric",
+              hour: "numeric",
+              minute: "2-digit",
+              hour12: true,
+            })}
           </p>
         </div>
 
@@ -114,7 +119,6 @@ const MyAddedCard = ({ ticket }) => {
         <div className="mt-auto flex gap-3 pt-5">
           <UpdateTicketModal ticket={ticket} isRejected={isRejected} />
           <DeleteTicketModal ticketId={ticket._id} isRejected={isRejected} />
-          
         </div>
       </div>
     </Card>

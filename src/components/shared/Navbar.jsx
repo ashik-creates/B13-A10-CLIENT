@@ -194,7 +194,7 @@ const Navbar = () => {
               {user ? (
                 <div className="flex flex-col gap-2">
                   <Link href={`/dashboard/${user?.role}`}>
-                    <Button variant="bordered" className="w-full">
+                    <Button variant="bordered" className="w-fit">
                       My Profile
                     </Button>
                   </Link>
