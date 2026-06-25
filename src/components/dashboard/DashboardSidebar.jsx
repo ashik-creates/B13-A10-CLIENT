@@ -178,7 +178,7 @@ const DashboardSidebar = () => {
         </div>
       </nav>
 
-      <div className="md:hidden h-screen">
+      <div className="md:hidden">
         <div
           onClick={() => setIsOpen(false)}
           className={`fixed inset-0 z-40 bg-black/50 transition-opacity duration-300 ${
@@ -189,11 +189,11 @@ const DashboardSidebar = () => {
         />
 
         <aside
-          className={`fixed left-0 top-0 z-50 flex h-screen max-w-72 w-full flex-col justify-between border-r border-divider bg-background p-6 transition-transform duration-300 ${
+          className={`fixed left-0 top-0 z-50 flex h-dvh w-full max-w-72 flex-col border-r border-divider bg-background p-6 transition-transform duration-300 ${
             isOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >
-          <div>
+          <div className="flex-1 overflow-y-auto">
             <div className="mb-8 flex items-center justify-between">
               <Link
                 href="/"
@@ -237,7 +237,7 @@ const DashboardSidebar = () => {
             </div>
           </div>
 
-          <div className="border-t border-divider pt-4">
+          <div className="mt-auto border-t border-divider pt-4">
             <Button
               onClick={() => {
                 handleSignOut();
