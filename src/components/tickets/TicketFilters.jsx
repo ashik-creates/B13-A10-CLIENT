@@ -36,20 +36,20 @@ const TicketFilters = () => {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      const params = new URLSearchParams();
+      const sp = new URLSearchParams();
 
-      if (from) params.set("from", from);
-      if (to) params.set("to", to);
+      if (from.trim()) sp.set("from", from.trim());
+      if (to.trim()) sp.set("to", to.trim());
 
       if (transportType !== "all") {
-        params.set("transport", transportType);
+        sp.set("transport", transportType);
       }
 
       if (sortBy !== "all") {
-        params.set("sort", sortBy);
+        sp.set("sort", sortBy);
       }
 
-      router.push(`/tickets?${params.toString()}`);
+      router.push(`/tickets?${sp.toString()}`);
     }, 300);
 
     return () => clearTimeout(timeout);
@@ -59,7 +59,11 @@ const TicketFilters = () => {
     <div className="mb-10 rounded-[24px] border border-divider bg-content1 p-6">
       <div className="grid grid-cols-1 gap-4 md:grid-cols-12">
         <div className="md:col-span-3">
-          <TextField value={from} onChange={setFrom} className="w-full">
+          <TextField
+            value={from}
+            onChange={(value) => setFrom(value)}
+            className="w-full"
+          >
             <span className="mb-2 block text-sm font-medium text-default-500">
               From
             </span>
@@ -75,7 +79,11 @@ const TicketFilters = () => {
         </div>
 
         <div className="md:col-span-3">
-          <TextField value={to} onChange={setTo} className="w-full">
+          <TextField
+            value={to}
+            onChange={(value) => setTo(value)}
+            className="w-full"
+          >
             <span className="mb-2 block text-sm font-medium text-default-500">
               To
             </span>
