@@ -21,11 +21,24 @@ const AdvertisedSection = async () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
-        {advertisedTickets.map((ticket) => (
-          <TicketCard key={ticket._id} ticket={ticket} />
-        ))}
-      </div>
+      {advertisedTickets.length > 0 ? (
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+          {advertisedTickets.map((ticket) => (
+            <TicketCard key={ticket._id} ticket={ticket} />
+          ))}
+        </div>
+      ) : (
+        <div className="flex min-h-[300px] flex-col items-center justify-center rounded-3xl border border-dashed border-divider bg-content1 p-10 text-center">
+          <h3 className="text-2xl font-bold">
+            No Featured Tickets Available
+          </h3>
+
+          <p className="mt-3 max-w-md text-default-500">
+            There are currently no advertised ticket offers available.
+            Please check back later for exciting travel deals.
+          </p>
+        </div>
+      )}
     </section>
   );
 };

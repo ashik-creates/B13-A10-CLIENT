@@ -35,20 +35,24 @@ const TicketFilters = () => {
   const [sortBy, setSortBy] = useState(searchParams.get("sort") || "all");
 
   useEffect(() => {
-    const params = new URLSearchParams();
+    const timeout = setTimeout(() => {
+      const params = new URLSearchParams();
 
-    if (from) params.set("from", from);
-    if (to) params.set("to", to);
+      if (from) params.set("from", from);
+      if (to) params.set("to", to);
 
-    if (transportType !== "all") {
-      params.set("transport", transportType);
-    }
+      if (transportType !== "all") {
+        params.set("transport", transportType);
+      }
 
-    if (sortBy !== "all") {
-      params.set("sort", sortBy);
-    }
+      if (sortBy !== "all") {
+        params.set("sort", sortBy);
+      }
 
-    router.push(`/tickets?${params.toString()}`);
+      router.push(`/tickets?${params.toString()}`);
+    }, 300);
+
+    return () => clearTimeout(timeout);
   }, [from, to, transportType, sortBy, router]);
 
   return (
