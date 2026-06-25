@@ -3,13 +3,19 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const NavLink = ({ href, children, mobile = false }) => {
+const NavLink = ({
+  href,
+  children,
+  mobile = false,
+  onClick,
+}) => {
   const pathname = usePathname();
   const isActive = pathname === href;
 
   return (
     <Link
       href={href}
+      onClick={onClick}
       className={`transition-all duration-200 ${
         mobile
           ? `block rounded-lg px-4 py-2.5 text-sm font-medium ${

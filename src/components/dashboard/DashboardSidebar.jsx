@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Button, Drawer, Spinner } from "@heroui/react";
+import { Button, Spinner } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
 import {
   FaBullhorn,
@@ -13,7 +13,6 @@ import {
   FaPlus,
   FaTicketSimple,
   FaUsers,
-  FaChartPie,
   FaBars,
 } from "react-icons/fa6";
 import NavLink from "../shared/NavLink";
@@ -21,12 +20,16 @@ import { FaBus } from "react-icons/fa";
 import toast from "react-hot-toast";
 import { BiLogOut } from "react-icons/bi";
 import { useRouter } from "next/navigation";
+import { HiXMark } from "react-icons/hi2";
 
 const DashboardSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
+
   const { data: session, isPending } = authClient.useSession();
+
   const currentUser = session?.user;
   const role = currentUser?.role || "user";
+
   const router = useRouter();
 
   const handleSignOut = async () => {
@@ -53,6 +56,7 @@ const DashboardSidebar = () => {
         link: "/dashboard/user/transactions",
       },
     ],
+
     vendor: [
       {
         icon: FaCircleUser,
@@ -80,6 +84,7 @@ const DashboardSidebar = () => {
         link: "/dashboard/vendor/revenue-overview",
       },
     ],
+
     admin: [
       {
         icon: FaCircleUser,
@@ -108,36 +113,39 @@ const DashboardSidebar = () => {
 
   if (isPending) {
     return (
-      <div className="h-96 max-w-60 w-full flex justify-center items-center text-sm font-medium">
-        <Spinner></Spinner>
+      <div className="flex h-96 w-full max-w-60 items-center justify-center">
+        <Spinner />
       </div>
     );
   }
 
   return (
     <>
-      <div className="fixed top-4 left-4 z-50 md:hidden">
-        <Button
-          isIconOnly
-          className="rounded-xl bg-[#FACC15] text-black shadow-md"
-          onClick={() => setIsOpen(true)}
-        >
-          <FaBars size={18} />
-        </Button>
+      <div className="m-5 md:m-0 ">
+        <div className="fixed  p-5 left-4 top-4 md:hidden">
+          <Button
+            className="flex gap-2  rounded-md bg-background text-foreground"
+            onClick={() => setIsOpen(true)}
+          >
+            <FaBars size={18} />
+            Menu
+          </Button>
+        </div>
       </div>
 
-      <nav className="hidden h-screen w-64 flex-col gap-5 border-r border-divider bg-background p-6 md:flex justify-between sticky left-0 top-0">
-        <div className="flex flex-col gap-5 w-full ">
-          <Link href="/" className="flex items-center gap-3 px-2 py-4 border-b border-gray-200">
+      <nav className="sticky top-0 hidden h-screen w-64 flex-col justify-between border-r border-divider bg-background p-6 md:flex">
+        <div>
+          <Link
+            href="/"
+            className="flex items-center gap-3 border-b border-divider px-2 py-4"
+          >
             <div className="relative flex h-9 w-9 items-center justify-center rounded-lg bg-linear-to-br from-[#FF3B30] via-[#9C27B0] to-[#00D2FF] p-[1.5px]">
               <div className="flex h-full w-full items-center justify-center rounded-[7px] bg-background">
-                <span className="text-xs font-bold">
-                  <FaBus />
-                </span>
+                <FaBus />
               </div>
             </div>
 
-            <h1 className="font-serif text-xl font-bold tracking-tight text-foreground">
+            <h1 className="font-serif text-xl font-bold tracking-tight">
               ticket
               <span className="font-sans font-light text-muted-foreground">
                 bari
@@ -145,10 +153,10 @@ const DashboardSidebar = () => {
             </h1>
           </Link>
 
-          <div className="mt-4 flex flex-col gap-2 w-full">
+          <div className="mt-6 flex flex-col gap-2">
             {navItems.map((item) => (
               <NavLink key={item.label} href={item.link}>
-                <div className="flex items-center gap-3.5 w-full">
+                <div className="flex items-center gap-3.5">
                   <item.icon className="size-5 shrink-0" />
                   <span>{item.label}</span>
                 </div>
@@ -157,64 +165,79 @@ const DashboardSidebar = () => {
           </div>
         </div>
 
-        <div className="w-full pt-4 border-t border-divider">
+        <div className="border-t border-divider pt-4">
           <Button
             onClick={handleSignOut}
             variant="flat"
             color="danger"
-            className="w-full justify-start gap-3.5 rounded-xl px-4 py-3 text-sm font-semibold h-auto min-w-0"
+            className="w-full justify-start gap-3.5 rounded-xl px-4 py-3 text-sm font-semibold"
           >
-            <BiLogOut size={18} className="shrink-0" />
+            <BiLogOut size={18} />
             <span>Logout</span>
           </Button>
         </div>
       </nav>
 
-      <Drawer
-        isOpen={isOpen}
-        onOpenChange={setIsOpen}
-        placement="left"
-        size="xs"
-      >
-        <Drawer.Content className="bg-background p-6 flex flex-col justify-between h-full">
-          <div className="flex flex-col gap-5 w-full">
-            <Link
-              href="/"
-              onClick={() => setIsOpen(false)}
-              className="mb-6 flex items-center gap-3 px-2 py-2"
-            >
-              <div className="relative flex h-9 w-9 items-center justify-center rounded-lg bg-linear-to-br from-[#FF3B30] via-[#9C27B0] to-[#00D2FF] p-[1.5px]">
-                <div className="flex h-full w-full items-center justify-center rounded-[7px] bg-background">
-                  <span className="text-xs font-bold">TB</span>
-                </div>
-              </div>
+      <div className="md:hidden">
+        <div
+          onClick={() => setIsOpen(false)}
+          className={`fixed inset-0 z-40 bg-black/50 transition-opacity duration-300 ${
+            isOpen
+              ? "pointer-events-auto opacity-100"
+              : "pointer-events-none opacity-0"
+          }`}
+        />
 
-              <h1 className="font-serif text-xl font-bold tracking-tight text-foreground">
-                ticket
-                <span className="font-sans font-light text-muted-foreground">
-                  bari
-                </span>
-              </h1>
-            </Link>
-
-            <div className="flex flex-col gap-2 w-full">
-              {navItems.map((item) => (
-                <NavLink
-                  key={item.label}
-                  href={item.link}
-                  mobile
-                  onClick={() => setIsOpen(false)}
-                >
-                  <div className="flex items-center gap-3.5 w-full">
-                    <item.icon className="size-5 shrink-0" />
-                    <span>{item.label}</span>
+        <aside
+          className={`fixed left-0 top-0 z-50 flex h-screen max-w-72 w-full flex-col justify-between border-r border-divider bg-background p-6 transition-transform duration-300 ${
+            isOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
+        >
+          <div>
+            <div className="mb-8 flex items-center justify-between">
+              <Link
+                href="/"
+                onClick={() => setIsOpen(false)}
+                className="flex items-center gap-3"
+              >
+                <div className="relative flex h-9 w-9 items-center justify-center rounded-lg bg-linear-to-br from-[#FF3B30] via-[#9C27B0] to-[#00D2FF] p-[1.5px]">
+                  <div className="flex h-full w-full items-center justify-center rounded-[7px] bg-background">
+                    <FaBus />
                   </div>
-                </NavLink>
+                </div>
+
+                <h1 className="font-serif text-xl font-bold tracking-tight">
+                  ticket
+                  <span className="font-sans font-light text-muted-foreground">
+                    bari
+                  </span>
+                </h1>
+              </Link>
+
+              <Button
+                isIconOnly
+                variant="light"
+                onClick={() => setIsOpen(false)}
+              >
+                <HiXMark size={24} />
+              </Button>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              {navItems.map((item) => (
+                <div key={item.label} onClick={() => setIsOpen(false)}>
+                  <NavLink href={item.link} mobile>
+                    <div className="flex items-center gap-3.5">
+                      <item.icon className="size-5 shrink-0" />
+                      <span>{item.label}</span>
+                    </div>
+                  </NavLink>
+                </div>
               ))}
             </div>
           </div>
 
-          <div className="w-full pt-4 border-t border-divider mt-auto">
+          <div className="border-t border-divider pt-4">
             <Button
               onClick={() => {
                 handleSignOut();
@@ -222,14 +245,14 @@ const DashboardSidebar = () => {
               }}
               variant="flat"
               color="danger"
-              className="w-full justify-start gap-3.5 rounded-xl px-4 py-3 text-sm font-semibold h-auto min-w-0"
+              className="w-full justify-start gap-3.5 rounded-xl px-4 py-3 text-sm font-semibold"
             >
-              <BiLogOut size={18} className="shrink-0" />
+              <BiLogOut size={18} />
               <span>Logout</span>
             </Button>
           </div>
-        </Drawer.Content>
-      </Drawer>
+        </aside>
+      </div>
     </>
   );
 };

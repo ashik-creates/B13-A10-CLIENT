@@ -69,8 +69,8 @@ const PopularRoutesSection = () => {
                 </div>
 
                 <Link
-                  href="/"
-                  className="inline-flex  bg-linear-to-r from-[#9C27B0] to-[#E91E63] rounded-md px-8 py-3 font-semibold text-white transition hover:opacity-90"
+                  href="/tickets"
+                  className="block text-center bg-linear-to-r from-[#9C27B0] to-[#E91E63] rounded-md px-8 py-3 font-semibold text-white transition hover:opacity-90"
                 >
                   Explore Tickets
                 </Link>

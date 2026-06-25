@@ -14,7 +14,7 @@ const LatestTicketsSection = async () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
         {tickets.map((ticket) => (
           <TicketCard key={ticket._id} ticket={ticket} />
         ))}
