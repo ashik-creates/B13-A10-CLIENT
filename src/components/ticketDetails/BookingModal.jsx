@@ -15,7 +15,6 @@ import { authClient } from "@/lib/auth-client";
 import { bookTicket } from "@/lib/action/booking";
 import { useRouter } from "next/navigation";
 
-
 const BookingModal = ({ ticket, disableBooking }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setOpen] = useState(false);
@@ -63,7 +62,7 @@ const BookingModal = ({ ticket, disableBooking }) => {
       setOpen(false);
       router.push("/dashboard/user/my-booked-tickets");
     } else {
-      toast.error(resData.message || "Something went wrong!");
+      toast.error("Only user can book tickets");
     }
   };
 

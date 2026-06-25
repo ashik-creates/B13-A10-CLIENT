@@ -133,7 +133,7 @@ const RegisterPage = () => {
             type="password"
             className="flex flex-col gap-1.5 w-full"
             validate={(value) => {
-              if (value.length < 6)
+              if (value.length < 8)
                 return "Password must be at least 6 characters";
               if (!/[A-Z]/.test(value))
                 return "Password must contain at least one uppercase letter";
