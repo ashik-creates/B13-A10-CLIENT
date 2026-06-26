@@ -2,17 +2,37 @@
 
 import { Pagination } from "@heroui/react";
 import TicketCard from "../shared/TicketCard";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 const TicketListContainer = ({ tickets, filters, total }) => {
-  const [page, setPage] = useState(parseInt(filters.page) || 1);
-
   const router = useRouter();
+
+  const page = parseInt(filters.page) || 1;
 
   const totalItems = total;
   const itemsPerPage = 6;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  const { from, to, transport, sort } = filters;
+
+  const changePage = (newPage) => {
+    const params = new URLSearchParams();
+
+    if (from) params.set("from", from);
+    if (to) params.set("to", to);
+
+    if (transport && transport !== "all") {
+      params.set("transport", transport);
+    }
+
+    if (sort && sort !== "all") {
+      params.set("sort", sort);
+    }
+
+    params.set("page", newPage);
+
+    router.push(`/tickets?${params.toString()}`);
+  };
 
   const getPageNumbers = () => {
     const pages = [];
@@ -23,34 +43,21 @@ const TicketListContainer = ({ tickets, filters, total }) => {
     const start = Math.max(2, page - 1);
     const end = Math.min(totalPages - 1, page + 1);
 
-    for (let i = start; i <= end; i++) pages.push(i);
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
 
     if (page < totalPages - 2) pages.push("ellipsis");
 
-    if (totalPages > 1 && !pages.includes(totalPages))
+    if (totalPages > 1 && !pages.includes(totalPages)) {
       pages.push(totalPages);
+    }
 
     return pages;
   };
 
-  const startItem = (page - 1) * itemsPerPage + 1;
+  const startItem = totalItems === 0 ? 0 : (page - 1) * itemsPerPage + 1;
   const endItem = Math.min(page * itemsPerPage, totalItems);
-
-  const { from, to, transport, sort } = filters;
-
-  useEffect(() => {
-    const params = new URLSearchParams();
-
-    if (from) params.set("from", from);
-    if (to) params.set("to", to);
-    if (transport && transport !== "all")
-      params.set("transport", transport);
-    if (sort && sort !== "all") params.set("sort", sort);
-
-    params.set("page", page);
-
-    router.push(`/tickets?${params.toString()}`);
-  }, [page, from, to, transport, sort, router]);
 
   return (
     <div>
@@ -77,7 +84,7 @@ const TicketListContainer = ({ tickets, filters, total }) => {
                   <Pagination.Item>
                     <Pagination.Previous
                       isDisabled={page === 1}
-                      onPress={() => setPage((p) => p - 1)}
+                      onPress={() => changePage(page - 1)}
                     >
                       <Pagination.PreviousIcon />
                       <span>Previous</span>
@@ -90,21 +97,21 @@ const TicketListContainer = ({ tickets, filters, total }) => {
                         <Pagination.Ellipsis />
                       </Pagination.Item>
                     ) : (
-                      <Pagination.Item key={`page-${i}`}>
+                      <Pagination.Item key={`page-${p}`}>
                         <Pagination.Link
                           isActive={p === page}
-                          onPress={() => setPage(p)}
+                          onPress={() => changePage(p)}
                         >
                           {p}
                         </Pagination.Link>
                       </Pagination.Item>
-                    ),
+                    )
                   )}
 
                   <Pagination.Item>
                     <Pagination.Next
                       isDisabled={page === totalPages}
-                      onPress={() => setPage((p) => p + 1)}
+                      onPress={() => changePage(page + 1)}
                     >
                       <span>Next</span>
                       <Pagination.NextIcon />

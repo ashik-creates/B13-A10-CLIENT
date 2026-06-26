@@ -34,26 +34,49 @@ const TicketFilters = () => {
 
   const [sortBy, setSortBy] = useState(searchParams.get("sort") || "all");
 
+  const [debouncedFrom, setDebouncedFrom] = useState(from);
+
+  const [debouncedTo, setDebouncedTo] = useState(to);
+
   useEffect(() => {
     const timeout = setTimeout(() => {
-      const sp = new URLSearchParams();
-
-      if (from.trim()) sp.set("from", from.trim());
-      if (to.trim()) sp.set("to", to.trim());
-
-      if (transportType !== "all") {
-        sp.set("transport", transportType);
-      }
-
-      if (sortBy !== "all") {
-        sp.set("sort", sortBy);
-      }
-
-      router.push(`/tickets?${sp.toString()}`);
-    }, 300);
+      setDebouncedFrom(from);
+    }, 500);
 
     return () => clearTimeout(timeout);
-  }, [from, to, transportType, sortBy, router]);
+  }, [from]);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setDebouncedTo(to);
+    }, 500);
+
+    return () => clearTimeout(timeout);
+  }, [to]);
+
+  useEffect(() => {
+    const sp = new URLSearchParams();
+
+    if (debouncedFrom.trim()) {
+      sp.set("from", debouncedFrom.trim());
+    }
+
+    if (debouncedTo.trim()) {
+      sp.set("to", debouncedTo.trim());
+    }
+
+    if (transportType !== "all") {
+      sp.set("transport", transportType);
+    }
+
+    if (sortBy !== "all") {
+      sp.set("sort", sortBy);
+    }
+
+    router.replace(`/tickets?${sp.toString()}`, {
+      scroll: false,
+    });
+  }, [debouncedFrom, debouncedTo, transportType, sortBy, router]);
 
   return (
     <div className="mb-10 rounded-[24px] border border-divider bg-content1 p-6">

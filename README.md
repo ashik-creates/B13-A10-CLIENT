@@ -1,36 +1,102 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Name: TicketBari
 
-## Getting Started
+## Description:
 
-First, run the development server:
+TicketBari is a modern online ticket booking platform built with Next.js where users can search, browse, and book transportation tickets for buses, trains, planes, and ships. Vendors can add and manage transportation tickets, while administrators oversee the entire platform by managing users, tickets, and promotional advertisements. The application provides a seamless and responsive experience with advanced filtering, secure authentication, and role-based dashboards.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Purpose:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+TicketBari is a full-stack transportation ticket management and booking application created to demonstrate how a real-world online ticketing platform operates using modern web technologies. The project utilizes Next.js App Router, secure authentication, MongoDB integration, dynamic search and filtering, role-based authorization, and a responsive user interface. The goal is to provide travelers with a convenient and user-friendly platform to discover and reserve transportation tickets efficiently.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Key Features:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Authentication System:
 
-## Learn More
+Email and password authentication is implemented using Better Auth. Users can securely register, login, maintain sessions using cookies, and logout with toast notifications. Protected routes and role-based access control ensure that users, vendors, and administrators can only access authorized resources.
 
-To learn more about Next.js, take a look at the following resources:
+### Multi-Role Dashboard:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The platform supports three different roles:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+* **User:** Can browse tickets, book tickets, view booking history, and access transaction records.
+* **Vendor:** Can add transportation tickets, manage their created tickets, review booking requests, and monitor revenue statistics.
+* **Admin:** Can manage users, approve or reject tickets, and advertise featured tickets.
 
-## Deploy on Vercel
+### Transportation Ticket Management:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Vendors can create transportation listings by providing ticket details such as title, route, transportation type, departure time, seat quantity, price, images, and additional perks. Vendors can also manage and update their own tickets from the dashboard.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Ticket Booking System:
+
+Authenticated users can reserve available transportation tickets. The system automatically updates seat availability and prevents overbooking through backend validation.
+
+### Dynamic Search and Filtering:
+
+Users can quickly discover tickets using powerful filtering options including:
+
+* Search by departure location.
+* Search by destination.
+* Filter by transportation type.
+* Sort tickets by price (ascending or descending).
+
+Search results update dynamically, providing a smooth browsing experience.
+
+### Ticket Approval Workflow:
+
+Newly added tickets remain in a pending state until reviewed by administrators. Admins can approve or reject submitted tickets directly from the management dashboard.
+
+### Revenue and Booking Management:
+
+Vendors can monitor their booking requests and track revenue generated from ticket sales through dedicated dashboard sections.
+
+### Responsive Modern UI:
+
+The application is fully responsive across mobile, tablet, and desktop devices. Custom mobile navigation, responsive layouts, modern cards, tables, and optimized components ensure an excellent user experience on all devices.
+
+### Performance Optimization:
+
+Next.js Server Components are utilized wherever possible to improve application performance and minimize unnecessary client-side rendering. Images are optimized using the Next.js Image component for better loading performance and layout stability.
+
+### User Experience Enhancements:
+
+Toast notifications provide instant feedback for actions such as authentication, booking confirmations, ticket approval, and ticket management operations. Clean navigation and intuitive interfaces enhance the overall user experience.
+
+## Tech and NPM Packages Used:
+
+### Next.js (App Router):
+
+Used for routing, server-side rendering, dynamic routes, loading states, and modern React architecture with Server and Client Components.
+
+### Tailwind CSS:
+
+Provides utility-first responsive styling for building modern and highly customizable user interfaces.
+
+### HeroUI:
+
+Used for reusable and accessible UI components such as Buttons, Tables, Inputs, Selects, Cards, Pagination, Modals, Drawers, Forms, and Spinners.
+
+### Better Auth:
+
+Handles authentication, session management, secure login system, and cookie-based user sessions.
+
+### MongoDB:
+
+Stores application data including users, tickets, bookings, transactions, and advertisements.
+
+### Express.js:
+
+Serves as the backend API server for handling business logic, ticket management, authentication, bookings, and database operations.
+
+### React Hot Toast:
+
+Provides elegant toast notifications for authentication, booking actions, and dashboard operations.
+
+### React Icons:
+
+Used throughout the application to provide visually appealing and consistent icons.
+
+
+
+## Live URL:
+
+https://b13-a10-client-dusky.vercel.app
