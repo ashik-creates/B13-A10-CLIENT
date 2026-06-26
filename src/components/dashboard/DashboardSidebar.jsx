@@ -121,10 +121,10 @@ const DashboardSidebar = () => {
 
   return (
     <>
-      <div className="m-5 md:m-0 ">
-        <div className="fixed  p-5 left-4 top-4 md:hidden">
+      <div className="md:hidden mb-3">
+        <div className="fixed left-4 top-4  md:hidden">
           <Button
-            className="flex gap-2  rounded-md bg-background text-foreground"
+            className="flex gap-2 rounded-md bg-background text-foreground"
             onClick={() => setIsOpen(true)}
           >
             <FaBars size={18} />
