@@ -95,7 +95,87 @@ Provides elegant toast notifications for authentication, booking actions, and da
 
 Used throughout the application to provide visually appealing and consistent icons.
 
+## 🚀 Run the Project Locally
 
+### 1. Clone the Repositories
+
+```bash
+# Client
+git clone https://github.com/ashik-creates/ticketbari-client.git
+
+# Server
+git clone https://github.com/ashik-creates/ticketbari-server.git
+```
+
+### 2. Navigate to the Project Directories
+
+```bash
+cd ticketbari-client
+```
+
+Open another terminal:
+
+```bash
+cd ticketbari-server
+```
+
+### 3. Install Dependencies
+
+Run the following command in both the client and server directories:
+
+```bash
+npm install
+```
+
+### 4. Configure Environment Variables
+
+Create a `.env.local` file inside the client project and a `.env` file inside the server project.
+
+#### Client (.env.local)
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:5000
+```
+
+#### Server (.env)
+
+```env
+PORT=5000
+MONGODB_URI=your_mongodb_connection_string
+BETTER_AUTH_SECRET=your_secret_key
+BETTER_AUTH_URL=http://localhost:5000
+CLIENT_URL=http://localhost:3000
+```
+
+> Replace the placeholder values with your own credentials.
+
+### 5. Start the Development Servers
+
+Start the backend:
+
+```bash
+npm run dev
+```
+
+Start the frontend:
+
+```bash
+npm run dev
+```
+
+### 6. Open the Application
+
+Visit:
+
+```
+http://localhost:3000
+```
+
+The frontend will communicate with the backend running on:
+
+```
+http://localhost:5000
+```
 
 ## Live URL:
 
