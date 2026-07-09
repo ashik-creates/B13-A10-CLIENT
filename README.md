@@ -131,15 +131,10 @@ npm install
 
 Create a `.env.local` file inside the client project and a `.env` file inside the server project.
 
-#### Client (.env.local)
+#### (.env.local)
 
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:5000
-```
-
-#### Server (.env)
-
-```env
 PORT=5000
 MONGODB_URI=your_mongodb_connection_string
 BETTER_AUTH_SECRET=your_secret_key
