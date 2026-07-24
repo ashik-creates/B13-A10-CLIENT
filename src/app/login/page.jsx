@@ -26,7 +26,7 @@ const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-    const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     setIsLoading(true);
     e.preventDefault();
 
@@ -51,10 +51,50 @@ const LoginPage = () => {
     }
   };
 
-  const googleSignIn = async() => {
+  const googleSignIn = async () => {
     await authClient.signIn.social({
-    provider: "google",
-  });
+      provider: "google",
+    });
+  };
+
+  const loginAsVendor = async () => {
+    setIsLoading(true);
+
+    const { data, error } = await authClient.signIn.email({
+      email: "vendor@vendor.com",
+      password: "Vendor123",
+    });
+
+    setIsLoading(false);
+
+    if (data) {
+      toast.success("Logged in as Vendor");
+      window.location.href = "/";
+    }
+
+    if (error) {
+      toast.error(error.message);
+    }
+  };
+
+  const loginAsAdmin = async () => {
+    setIsLoading(true);
+
+    const { data, error } = await authClient.signIn.email({
+      email: "admin@admin.com",
+      password: "Admin123",
+    });
+
+    setIsLoading(false);
+
+    if (data) {
+      toast.success("Logged in as Admin");
+      window.location.href = "/";
+    }
+
+    if (error) {
+      toast.error(error.message);
+    }
   };
 
   return (
@@ -64,11 +104,17 @@ const LoginPage = () => {
           <Link href="/" className="flex items-center gap-3 group mb-4">
             <div className="relative flex h-9 w-9 items-center justify-center rounded-lg bg-linear-to-br from-[#FF3B30] via-[#9C27B0] to-[#00D2FF] p-[1.5px]">
               <div className="flex h-full w-full items-center justify-center rounded-[7px] bg-background">
-                <FaBus size={15} className="transition-transform group-hover:scale-110" />
+                <FaBus
+                  size={15}
+                  className="transition-transform group-hover:scale-110"
+                />
               </div>
             </div>
             <h1 className="font-serif text-xl font-bold tracking-tight">
-              ticket<span className="font-sans font-light text-muted-foreground">bari</span>
+              ticket
+              <span className="font-sans font-light text-muted-foreground">
+                bari
+              </span>
             </h1>
           </Link>
           <h2 className="font-serif text-2xl font-bold tracking-tight text-center">
@@ -92,10 +138,12 @@ const LoginPage = () => {
               return null;
             }}
           >
-            <Label className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">Email Address</Label>
-            <Input 
-              placeholder="john@example.com" 
-              className="w-full h-11 px-3.5 rounded-xl border border-divider bg-background/50 placeholder-muted-foreground focus:outline-none focus:border-[#9C27B0] transition-all duration-200" 
+            <Label className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+              Email Address
+            </Label>
+            <Input
+              placeholder="john@example.com"
+              className="w-full h-11 px-3.5 rounded-xl border border-divider bg-background/50 placeholder-muted-foreground focus:outline-none focus:border-[#9C27B0] transition-all duration-200"
             />
             <FieldError className="text-xs text-danger font-medium mt-0.5" />
           </TextField>
@@ -106,10 +154,12 @@ const LoginPage = () => {
             type="password"
             className="flex flex-col gap-1.5 w-full"
           >
-            <Label className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">Password</Label>
-            <Input 
-              placeholder="••••••••" 
-              className="w-full h-11 px-3.5 rounded-xl border border-divider bg-background/50 placeholder-muted-foreground focus:outline-none focus:border-[#9C27B0] transition-all duration-200" 
+            <Label className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+              Password
+            </Label>
+            <Input
+              placeholder="••••••••"
+              className="w-full h-11 px-3.5 rounded-xl border border-divider bg-background/50 placeholder-muted-foreground focus:outline-none focus:border-[#9C27B0] transition-all duration-200"
             />
             <FieldError className="text-xs text-danger font-medium mt-0.5" />
           </TextField>
@@ -132,8 +182,37 @@ const LoginPage = () => {
 
         <div className="flex justify-center items-center gap-3 my-1">
           <Separator className="flex-1 bg-divider h-[1px]" />
-          <div className="whitespace-nowrap text-xs text-muted-foreground font-medium tracking-wide uppercase">Or continue with</div>
+          <div className="whitespace-nowrap text-xs text-muted-foreground font-medium tracking-wide uppercase">
+            Or continue with
+          </div>
           <Separator className="flex-1 bg-divider h-[1px]" />
+        </div>
+        <div className="w-full rounded-xl border border-divider bg-muted/30 p-4">
+          <p className="mb-3 text-center text-sm font-semibold">
+            Demo Credentials
+          </p>
+
+          <div className="grid grid-cols-2 gap-3">
+            <Button
+              type="button"
+              variant="flat"
+              onPress={loginAsVendor}
+              isDisabled={isLoading}
+              className="rounded-lg"
+            >
+              Demo Vendor
+            </Button>
+
+            <Button
+              type="button"
+              variant="flat"
+              onPress={loginAsAdmin}
+              isDisabled={isLoading}
+              className="rounded-lg"
+            >
+              Demo Admin
+            </Button>
+          </div>
         </div>
 
         <Button
@@ -147,7 +226,9 @@ const LoginPage = () => {
         <p className="text-center text-sm text-muted-foreground mt-1">
           {"Don't"} have an account?{" "}
           <Link href={"/register"}>
-            <span className="text-[#9C27B0] font-semibold hover:underline cursor-pointer transition-colors">Register here</span>
+            <span className="text-[#9C27B0] font-semibold hover:underline cursor-pointer transition-colors">
+              Register here
+            </span>
           </Link>
         </p>
       </Card>

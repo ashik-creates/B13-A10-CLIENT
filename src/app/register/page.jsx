@@ -54,10 +54,50 @@ const RegisterPage = () => {
     window.location.href = "/";
   };
 
-  const googleSignIn = async() => {
+  const googleSignIn = async () => {
     await authClient.signIn.social({
-    provider: "google",
-  });
+      provider: "google",
+    });
+  };
+
+  const loginAsVendor = async () => {
+    setIsLoading(true);
+
+    const { data, error } = await authClient.signIn.email({
+      email: "vendor@vendor.com",
+      password: "Vendor123",
+    });
+
+    setIsLoading(false);
+
+    if (data) {
+      toast.success("Logged in as Vendor");
+      window.location.href = "/";
+    }
+
+    if (error) {
+      toast.error(error.message);
+    }
+  };
+
+  const loginAsAdmin = async () => {
+    setIsLoading(true);
+
+    const { data, error } = await authClient.signIn.email({
+      email: "admin@admin.com",
+      password: "Admin123",
+    });
+
+    setIsLoading(false);
+
+    if (data) {
+      toast.success("Logged in as Admin");
+      window.location.href = "/";
+    }
+
+    if (error) {
+      toast.error(error.message);
+    }
   };
 
   return (
@@ -191,6 +231,34 @@ const RegisterPage = () => {
             Or register with
           </div>
           <Separator className="flex-1 bg-divider h-[1px]" />
+        </div>
+
+        <div className="w-full rounded-xl border border-divider bg-muted/30 p-4">
+          <p className="mb-3 text-center text-sm font-semibold">
+            Demo Credentials
+          </p>
+
+          <div className="grid grid-cols-2 gap-3">
+            <Button
+              type="button"
+              variant="flat"
+              onPress={loginAsVendor}
+              isDisabled={isLoading}
+              className="rounded-lg"
+            >
+              Demo Vendor
+            </Button>
+
+            <Button
+              type="button"
+              variant="flat"
+              onPress={loginAsAdmin}
+              isDisabled={isLoading}
+              className="rounded-lg"
+            >
+              Demo Admin
+            </Button>
+          </div>
         </div>
 
         <Button
