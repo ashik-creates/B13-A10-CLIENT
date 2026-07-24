@@ -234,8 +234,8 @@ const RegisterPage = () => {
         </div>
 
         <div className="w-full rounded-2xl border border-divider bg-default-100/60 p-4 backdrop-blur-sm">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div>
+          <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="text-center sm:text-left">
               <h3 className="text-sm font-semibold text-foreground">
                 Demo Credentials
               </h3>
@@ -244,7 +244,7 @@ const RegisterPage = () => {
               </p>
             </div>
 
-            <div className="flex flex-col gap-2 sm:flex-row">
+            <div className="flex w-full flex-col items-stretch gap-2 sm:w-auto sm:flex-row sm:items-center">
               <Button
                 type="button"
                 onPress={loginAsVendor}
