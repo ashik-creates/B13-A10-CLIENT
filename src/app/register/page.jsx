@@ -234,22 +234,22 @@ const RegisterPage = () => {
         </div>
 
         <div className="w-full rounded-2xl border border-divider bg-default-100/60 p-4 backdrop-blur-sm">
-          <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="text-center sm:text-left">
+          <div className="space-y-4">
+            <div className="text-center">
               <h3 className="text-sm font-semibold text-foreground">
                 Demo Credentials
               </h3>
-              <p className="text-xs text-muted-foreground">
-                Try the application with demo accounts.
+              <p className="mt-1 text-xs text-muted-foreground">
+                Instantly explore the application using demo accounts.
               </p>
             </div>
 
-            <div className="flex w-full flex-col items-stretch gap-2 sm:w-auto sm:flex-row sm:items-center">
+            <div className="flex flex-col gap-3 sm:flex-row">
               <Button
                 type="button"
                 onPress={loginAsVendor}
                 isDisabled={isLoading}
-                className="min-w-[140px] rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 font-semibold text-white shadow-md transition-all hover:opacity-90"
+                className="flex-1 rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 font-semibold text-white shadow-md transition-all hover:opacity-90"
               >
                 Demo Vendor
               </Button>
@@ -258,7 +258,7 @@ const RegisterPage = () => {
                 type="button"
                 onPress={loginAsAdmin}
                 isDisabled={isLoading}
-                className="min-w-[140px] rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 font-semibold text-white shadow-md transition-all hover:opacity-90"
+                className="flex-1 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 font-semibold text-white shadow-md transition-all hover:opacity-90"
               >
                 Demo Admin
               </Button>
