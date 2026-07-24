@@ -62,7 +62,7 @@ const LoginPage = () => {
 
     const { data, error } = await authClient.signIn.email({
       email: "vendor@vendor.com",
-      password: "Vendor123",
+      password: "Vendor1234",
     });
 
     setIsLoading(false);
@@ -82,7 +82,7 @@ const LoginPage = () => {
 
     const { data, error } = await authClient.signIn.email({
       email: "admin@admin.com",
-      password: "Admin123",
+      password: "Admin1234",
     });
 
     setIsLoading(false);
@@ -195,20 +195,18 @@ const LoginPage = () => {
           <div className="grid grid-cols-2 gap-3">
             <Button
               type="button"
-              variant="flat"
               onPress={loginAsVendor}
               isDisabled={isLoading}
-              className="rounded-lg"
+              className="rounded-lg bg-gradient-to-r from-violet-600 to-fuchsia-600 font-semibold text-white shadow-md transition hover:opacity-90"
             >
               Demo Vendor
             </Button>
 
             <Button
               type="button"
-              variant="flat"
               onPress={loginAsAdmin}
               isDisabled={isLoading}
-              className="rounded-lg"
+              className="rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 font-semibold text-white shadow-md transition hover:opacity-90"
             >
               Demo Admin
             </Button>
