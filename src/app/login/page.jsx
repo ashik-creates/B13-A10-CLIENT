@@ -187,29 +187,36 @@ const LoginPage = () => {
           </div>
           <Separator className="flex-1 bg-divider h-[1px]" />
         </div>
-        <div className="w-full rounded-xl border border-divider bg-muted/30 p-4">
-          <p className="mb-3 text-center text-sm font-semibold">
-            Demo Credentials
-          </p>
+        <div className="w-full rounded-2xl border border-divider bg-default-100/60 p-4 backdrop-blur-sm">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h3 className="text-sm font-semibold text-foreground">
+                Demo Credentials
+              </h3>
+              <p className="text-xs text-muted-foreground">
+                Try the application with demo accounts.
+              </p>
+            </div>
 
-          <div className="grid grid-cols-2 gap-3">
-            <Button
-              type="button"
-              onPress={loginAsVendor}
-              isDisabled={isLoading}
-              className="rounded-lg bg-gradient-to-r from-violet-600 to-fuchsia-600 font-semibold text-white shadow-md transition hover:opacity-90"
-            >
-              Demo Vendor
-            </Button>
+            <div className="flex flex-col gap-2 sm:flex-row">
+              <Button
+                type="button"
+                onPress={loginAsVendor}
+                isDisabled={isLoading}
+                className="min-w-[140px] rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 font-semibold text-white shadow-md transition-all hover:opacity-90"
+              >
+                Demo Vendor
+              </Button>
 
-            <Button
-              type="button"
-              onPress={loginAsAdmin}
-              isDisabled={isLoading}
-              className="rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 font-semibold text-white shadow-md transition hover:opacity-90"
-            >
-              Demo Admin
-            </Button>
+              <Button
+                type="button"
+                onPress={loginAsAdmin}
+                isDisabled={isLoading}
+                className="min-w-[140px] rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 font-semibold text-white shadow-md transition-all hover:opacity-90"
+              >
+                Demo Admin
+              </Button>
+            </div>
           </div>
         </div>
 
